@@ -15,16 +15,42 @@
 	function onRate() {
 		document.getElementById("option").innerHTML = "Go to rate.";
 	}
+	function onSearch() {
+		document.getElementById("option").innerHTML = "Go to search.";
+	}
 </script>
+<style>
+	p.option{
+		position: relative;
+		left: 240px;
+		font-size: 2.0em;
+	}
+	div.rec {
+		position: relative;
+		left: 100px;
+	}
+	div.rate {
+		position: relative;
+		left: 100px;
+	}
+	div.search {
+		position: relative;
+		left: 100px;
+	}
+</style>
 	
-	<p id="option">Select an option.</p>
+	<p class="option" id="option">Select an option.</p>
 	
-    <div style="position: absolute; left: 10px; top: 40px;"> 
+    <div style="position: relative;" class="rec" id="rec"> 
 		<img src="rec.png" width="500" height="168" onclick="onRecommend();" />
 	</div>
 	
-	<div style="position: absolute; left: 10px; top: 200px;"> 
+	<div style="position: relative;" class="rate" id="rate"> 
 		<img src="rate.png" width="500" height="168" onclick="onRate();" />
+	</div>
+	
+	<div style="position: relative;" class="search" id="search"> 
+		<img src="search.png" width="500" height="168" onclick="onSearch();" />
 	</div>
 
 </html>
