@@ -3,4 +3,81 @@
 	 <meta name="author" content="ShiKi">
 	 <p class="test" id="test">Recommendation page!</p>
 	 
+<style>
+  #progress_bar {
+    margin: 10px 0;
+    padding: 3px;
+    border: 1px solid #000;
+    font-size: 14px;
+    clear: both;
+    opacity: 0;
+    -moz-transition: opacity 1s linear;
+    -o-transition: opacity 1s linear;
+    -webkit-transition: opacity 1s linear;
+  }
+  #progress_bar.loading {
+    opacity: 1.0;
+  }
+  #progress_bar .percent {
+    background-color: #99ccff;
+    height: auto;
+    width: 0;
+  }
+</style>
+
+	<input type="file" id="files" name="file" />
+	<div id="progress_bar"><div class="percent">0%</div></div>
+	<input type="submit" value="Upload Image" name="submit" id="submit" onclick="submit();">
+	<output id="list"></output>
+	<a href="" id="a">click here to download your file</a>
+
+
+<script>
+	var reader;
+	var output = [];
+	var image;
+	
+	function submit() {
+		console.log("Submit button clicked!");
+		// attempt to save the file (DOES NOT WORK)
+		var a = document.getElementById("a");
+		var file = new Blob([image.src], {type: "text"});
+		a.href = URL.createObjectURL(file);
+		a.download = "new_filenmae.png";
+		a.click();
+	}
+
+	function handleFileSelect(evt) {
+		var files = evt.target.files; // FileList object
+
+		// files is a FileList of File objects. List some properties.
+		var output = [];
+		for (var i = 0, f; f = files[i]; i++) {
+			output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+                  f.size, ' bytes, last modified: ',
+                  f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+                  '</li>');
+           
+            // read and display the image
+            var reader = new FileReader();
+		    reader.onload = function (event) {
+				image = new Image();
+				image.src = event.target.result;
+				image.width = 300; // resize
+				document.body.appendChild(image);
+			};
+			
+			reader.readAsDataURL(f);
+           
+		}
+		
+		for (var i = 0, f; f = output[i]; i++) {
+			console.log(f);
+		}
+		document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+	}
+
+	document.getElementById('files').addEventListener('change', handleFileSelect, false);
+</script>
+	 
 </html>
