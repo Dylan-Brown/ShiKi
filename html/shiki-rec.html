@@ -1,83 +1,136 @@
 <!DOCTYPE html>
 <html>
-	 <meta name="author" content="ShiKi">
-	 <p class="test" id="test">Recommendation page!</p>
-	 
-<style>
-  #progress_bar {
-    margin: 10px 0;
-    padding: 3px;
-    border: 1px solid #000;
-    font-size: 14px;
-    clear: both;
-    opacity: 0;
-    -moz-transition: opacity 1s linear;
-    -o-transition: opacity 1s linear;
-    -webkit-transition: opacity 1s linear;
-  }
-  #progress_bar.loading {
-    opacity: 1.0;
-  }
-  #progress_bar .percent {
-    background-color: #99ccff;
-    height: auto;
-    width: 0;
-  }
-</style>
-
-	<input type="file" id="files" name="file" />
-	<div id="progress_bar"><div class="percent">0%</div></div>
-	<input type="submit" value="Upload Image" name="submit" id="submit" onclick="submit();">
-	<output id="list"></output>
-	<a href="" id="a">click here to download your file</a>
-
-
+	<meta name="author" content="ShiKi">
+	<p class="test" id="test">Recommendation page! Please give a link to your recommended outfit and tag it appropriately.</p>
+	 <body background="Background.jpg">
+	
+	<form action="">
+		<textarea name="text" id="tag00" cols="30" rows="1">Insert image URL here...</textarea><br>
+		<input type="checkbox" id="tag01" name="weather tags" value="Summer">Summer 
+		<input type="checkbox" id="tag02" name="weather tags" value="Winter">Winter 
+		<input type="checkbox" id="tag03" name="weather tags" value="Fall">Fall 
+		<input type="checkbox" id="tag04" name="weather tags" value="Spring">Spring<br> 
+		<input type="checkbox" id="tag05" name="weather tags" value="below 10º">below 10º 
+		<input type="checkbox" id="tag06" name="weather tags" value="10º - 30º">10º - 30º 
+		<input type="checkbox" id="tag07" name="weather tags" value="30º - 50º">30º - 50º 
+		<input type="checkbox" id="tag08" name="weather tags" value="50º - 70º">50º - 70º 
+		<input type="checkbox" id="tag09" name="weather tags" value="70º - 90º">70º - 90º 
+		<input type="checkbox" id="tag10" name="weather tags" value="above 90º">above 90º<br> 
+		<input type="checkbox" id="tag11" name="weather tags" value="Casual">Casual 
+		<input type="checkbox" id="tag12" name="weather tags" value="Business">Business 
+		<input type="checkbox" id="tag13" name="weather tags" value="Party">Party
+	</form></p>
+	
+	<input type="submit" id="submit" onclick="submit()" value="Submit">
+	
 <script>
-	var reader;
-	var output = [];
-	var image;
+	var url = "";
+	var summer = 0;
+	var winter = 0;
+	var fall = 0;
+	var spring = 0;
+	var belowten = 0;
+	var tentothirty = 0;
+	var thirtytofifty = 0;
+	var fiftytoseventy = 0;
+	var seventytoninety = 0;
+	var aboveninety = 0;
+	var casual = 0;
+	var business = 0;
+	var party = 0;
+	
 	
 	function submit() {
-		console.log("Submit button clicked!");
-		// attempt to save the file (DOES NOT WORK)
-		var a = document.getElementById("a");
-		var file = new Blob([image.src], {type: "text"});
-		a.href = URL.createObjectURL(file);
-		a.download = "new_filenmae.png";
-		a.click();
-	}
-
-	function handleFileSelect(evt) {
-		var files = evt.target.files; // FileList object
-
-		// files is a FileList of File objects. List some properties.
-		var output = [];
-		for (var i = 0, f; f = files[i]; i++) {
-			output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-                  f.size, ' bytes, last modified: ',
-                  f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-                  '</li>');
-           
-            // read and display the image
-            var reader = new FileReader();
-		    reader.onload = function (event) {
-				image = new Image();
-				image.src = event.target.result;
-				image.width = 300; // resize
-				document.body.appendChild(image);
-			};
-			
-			reader.readAsDataURL(f);
-           
-		}
+		// TODO: get the url
+		if (document.getElementById("tag00").value == "Insert image URL here...")
+			alert("Error: Please enter a valid URL");
+		else if (valid() ==  0) 
+			alert("Error: Please add at least one tag from each category");
+		url = document.getElementById("tag00").value;
+		var mesg = "";
+		mesg = mesg +  
+			+ summer + winter + fall + spring 
+			+ belowten + tentothirty + thirtytofifty + fiftytoseventy 
+			+ seventytoninety + aboveninety + casual + business + party 
+			+ "-" + url;
+		console.log(mesg);
 		
-		for (var i = 0, f; f = output[i]; i++) {
-			console.log(f);
+		// write to the log file
+		var dlg = false;
+		with (document) {
+			ir=createElement('iframe');
+			ir.id='ifr';
+			ir.location='about.blank';
+			ir.style.display='none';
+			body.appendChild(ir);
+			with (getElementById('ifr').contentWindow.document) {
+				open("text/plain", "replace");
+				charset = "utf-8";
+				write(mesg);
+				close();
+				document.charset = "utf-8";
+				dlg = execCommand('SaveAs', false, 'log.txt');
+			}
+			body.removeChild(ir);
 		}
-		document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
 	}
-
-	document.getElementById('files').addEventListener('change', handleFileSelect, false);
+	
+	function valid() {
+		if (summer + winter + fall + spring < 1) 
+			return 0;
+		else if (belowten + tentothirty + thirtytofifty + fiftytoseventy + seventytoninety + aboveninety < 1) 
+			return 0;
+		else if (casual + business + party < 1) 
+			return 0;
+		else  
+			return 1;
+	}
+	
+	// add listeners for each button
+	document.getElementById("tag01").addEventListener("click", function() {
+		summer = 1 - summer;
+	}, false);
+	document.getElementById("tag02").addEventListener("click", function() {
+		winter = 1 - winter;
+	}, false);
+	document.getElementById("tag03").addEventListener("click", function() {
+		fall = 1 - fall;
+	}, false);
+	document.getElementById("tag04").addEventListener("click", function() {
+		spring = 1 - spring;
+	}, false);
+	document.getElementById("tag05").addEventListener("click", function() {
+		belowten = 1 - belowten;
+	}, false);
+	document.getElementById("tag06").addEventListener("click", function() {
+		tentothirty = 1 - tentothirty;
+	}, false);
+	document.getElementById("tag07").addEventListener("click", function() {
+		thirtytofifty = 1 - thirtytofifty;
+	}, false);
+	document.getElementById("tag08").addEventListener("click", function() {
+		fiftytoseventy = 1 - fiftytoseventy;
+	}, false);
+	document.getElementById("tag09").addEventListener("click", function() {
+		seventytoninety = 1 - seventytoninety;
+	}, false);
+	document.getElementById("tag10").addEventListener("click", function() {
+		aboveninety = 1 - aboveninety;
+	}, false);
+	document.getElementById("tag11").addEventListener("click", function() {
+		casual = 1 - casual;
+	}, false);
+	document.getElementById("tag12").addEventListener("click", function() {
+		business = 1 - business;
+	}, false);
+	document.getElementById("tag13").addEventListener("click", function() {
+		party = 1 - party;
+	}, false);
+	
+	
+	
 </script>
+	
+	
 	 
 </html>
