@@ -4,6 +4,7 @@ We want to be able to drag and drop -->
 <!DOCTYPE html>
 <html>
 <head>
+
 <style>
 h1 {
     text-align: center;
@@ -22,41 +23,19 @@ img {
     align="right"
 }
 </style>
+
+<p><h1>SHIKI <img src="images/logo.png" align="right" width=200 height=auto onclick="onLogo();" id="logo"> </h1> </p>
+
+<h2 id = "instructions" align="center"></h2>
+
 </head>
-<p><h1>SHIKI<img src="images/logo.png" align="right" width = 200 height = auto ></h1> </p>
-
-<h2><center>Rate Page based on the individual Tag provided 
-<br><br>Are the clothes in this page related to the tag casual ?
-<br><br>
-<br>
-</center></h2>
-
-
-<body background="images/Background.jpg">
+<body background="Background.jpg" style="border:1px solid black;">
 <!-- FIRST LINK -->
 <center>
-<b><img src="http://machopicture.com/images/autumn-dresses/1151-summer-clothes-for-women.jpg" 
-width="200" height="345"
-alt="Mountain View"/></b> 
 
-<form action="">
-	<input type="radio" id = "rate" name="rate" value="1">1
-	<input type="radio" id = "rate" name="rate" value="2">2
-	<input type="radio" id = "rate" name="rate" value="3">3
-	<input type="radio" id = "rate" name="rate" value="4">4
-	<input type="radio" id = "rate" name="rate" value="5">5 
-	<input type="radio" id = "rate" name="rate" value="6">6 
-	<input type="radio" id = "rate" name="rate" value="7">7  
-	<input type="radio" id = "rate" name="rate" value="8">8 
-	<input type="radio" id = "rate" name="rate" value="9">9 
-	<input type="radio" id = "rate" name="rate" value="10">10 
-</form>
 
-<p> <p><p><p><p> </p> </p> </p> </p></p>
-
-<b><img src="https://onlytheimportantstuffinfashion.files.wordpress.com/2013/01/channing-tatum-details-magazine-dg-denim-shirt-jt2.jpg" 
-width="200" height="345"
-alt="Mountain View"/></b> 
+<b><img src="https://onlytheimportantstuffinfashion.files.wordpress.com/2013/01/channing-tatum-details-magazine-dg-denim-shirt-jt2.jpg"
+ width="200" height=auto id="img1"/></b> 
 
 <form action="">
 	<input type="radio" id = "rate" name="rate" value="1">1
@@ -71,9 +50,71 @@ alt="Mountain View"/></b>
 	<input type="radio" id = "rate" name="rate" value="10">10
 </form>
 
-<p> <p><p> <p><p> </p> </p></p> </p></p>
+<br><br>
+<b><img src="http://www.celebritieswatches.com/wp-content/uploads/2013/06/Channing-Tatum_Georg-Jenson.jpg"
+ width="200" height=auto id="img2"/></b> 
 
-<button onclick="myFunction()">Submit</button>
+<form action="">
+	<input type="radio" id = "rate" name="rate" value="1">1
+	<input type="radio" id = "rate" name="rate" value="2">2
+	<input type="radio" id = "rate" name="rate" value="3">3
+	<input type="radio" id = "rate" name="rate" value="4">4
+	<input type="radio" id = "rate" name="rate" value="5">5 
+	<input type="radio" id = "rate" name="rate" value="6">6 
+	<input type="radio" id = "rate" name="rate" value="7">7  
+	<input type="radio" id = "rate" name="rate" value="8">8 
+	<input type="radio" id = "rate" name="rate" value="9">9 
+	<input type="radio" id = "rate" name="rate" value="10">10 
+</form>
+
+<br><br>
+<b><img src="http://hairstyleholic.com/wp-content/uploads/2014/04/Channing-Tatum-Trend-Hairstyle-And-Fashion.jpg" width="200" height=auto id="img3" align="center" /></b> 
+
+<form action="">
+	<input type="radio" id = "rate" name="rate" value="1">1
+	<input type="radio" id = "rate" name="rate" value="2">2
+	<input type="radio" id = "rate" name="rate" value="3">3
+	<input type="radio" id = "rate" name="rate" value="4">4
+	<input type="radio" id = "rate" name="rate" value="5">5 
+	<input type="radio" id = "rate" name="rate" value="6">6 
+	<input type="radio" id = "rate" name="rate" value="7">7  
+	<input type="radio" id = "rate" name="rate" value="8">8 
+	<input type="radio" id = "rate" name="rate" value="9">9 
+	<input type="radio" id = "rate" name="rate" value="10">10 
+</form>
+
+<br><br>
+
+<button id="submit" onclick="submit()">Submit</button>
 </center>
+
+<script type="text/javascript">
+		var tag = "DUMMY TAG";
+		var w = window.innerWidth/4;
+		var logoW = document.getElementById('logo').clientWidth;
+
+
+		window.onload = load();
+		function load() {
+			//RETRIEVE A STRING DATA FROM PHP shiki-rate-get.php
+			//set TAG to be the tag we want
+
+			//set the top of the page to reflect that specific tag
+			document.getElementById("instructions").innerHTML = "Rate Page based on the individual Tag provided <br/> Are the clothes in this page related to the tag " + tag + "?";
+			document.getElementById("instructions").style.textAlign = "center";
+			document.getElementById("instructions").style.fontSize = "medium";
+
+			//parse the result from the php and then set the images accordingly
+			//http://www.w3schools.com/js/tryit.asp?filename=tryjs_intro_lightbulb
+		}
+
+		function submit() {			
+		}
+
+		function onLogo() {
+			window.location="shiki-home.html";
+	}
+
+</script>
 </body>
 </html>
