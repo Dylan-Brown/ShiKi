@@ -1,136 +1,185 @@
 <!DOCTYPE html>
 <html>
-	<meta name="author" content="ShiKi">
-	<p class="test" id="test">Recommendation page! Please give a link to your recommended outfit and tag it appropriately.</p>
-	 <body background="Background.jpg">
-	
+<meta name="author" content="ShiKi">
+<p class="test" id="test">Recommendation page! Please give a link to
+	your recommended outfit and tag it appropriately.</p>
+<body background="Background.jpg">
+
 	<form action="">
-		<textarea name="text" id="tag00" cols="30" rows="1">Insert image URL here...</textarea><br>
-		<input type="checkbox" id="tag01" name="weather tags" value="Summer">Summer 
-		<input type="checkbox" id="tag02" name="weather tags" value="Winter">Winter 
-		<input type="checkbox" id="tag03" name="weather tags" value="Fall">Fall 
-		<input type="checkbox" id="tag04" name="weather tags" value="Spring">Spring<br> 
-		<input type="checkbox" id="tag05" name="weather tags" value="below 10º">below 10º 
-		<input type="checkbox" id="tag06" name="weather tags" value="10º - 30º">10º - 30º 
-		<input type="checkbox" id="tag07" name="weather tags" value="30º - 50º">30º - 50º 
-		<input type="checkbox" id="tag08" name="weather tags" value="50º - 70º">50º - 70º 
-		<input type="checkbox" id="tag09" name="weather tags" value="70º - 90º">70º - 90º 
-		<input type="checkbox" id="tag10" name="weather tags" value="above 90º">above 90º<br> 
-		<input type="checkbox" id="tag11" name="weather tags" value="Casual">Casual 
-		<input type="checkbox" id="tag12" name="weather tags" value="Business">Business 
-		<input type="checkbox" id="tag13" name="weather tags" value="Party">Party
-	</form></p>
-	
+		<textarea name="text" id="tag00" cols="30" rows="1">Insert image URL here...</textarea>
+		<br> <input type="checkbox" id="tag01" name="weather tags"
+			value="Summer">Summer <input type="checkbox" id="tag02"
+			name="weather tags" value="Winter">Winter <input
+			type="checkbox" id="tag03" name="weather tags" value="Fall">Fall
+		<input type="checkbox" id="tag04" name="weather tags" value="Spring">Spring<br>
+		<input type="checkbox" id="tag05" name="weather tags"
+			value="below 10º">below 10º <input type="checkbox" id="tag06"
+			name="weather tags" value="10º - 30º">10º - 30º <input
+			type="checkbox" id="tag07" name="weather tags" value="30º - 50º">30º
+		- 50º <input type="checkbox" id="tag08" name="weather tags"
+			value="50º - 70º">50º - 70º <input type="checkbox" id="tag09"
+			name="weather tags" value="70º - 90º">70º - 90º <input
+			type="checkbox" id="tag10" name="weather tags" value="above 90º">above
+		90º<br> <input type="checkbox" id="tag11" name="weather tags"
+			value="Casual">Casual <input type="checkbox" id="tag12"
+			name="weather tags" value="Business">Business <input
+			type="checkbox" id="tag13" name="weather tags" value="Party">Party
+	</form>
+	</p>
+
 	<input type="submit" id="submit" onclick="submit()" value="Submit">
-	
-<script>
-	var url = "";
-	var summer = 0;
-	var winter = 0;
-	var fall = 0;
-	var spring = 0;
-	var belowten = 0;
-	var tentothirty = 0;
-	var thirtytofifty = 0;
-	var fiftytoseventy = 0;
-	var seventytoninety = 0;
-	var aboveninety = 0;
-	var casual = 0;
-	var business = 0;
-	var party = 0;
-	
-	
-	function submit() {
-		// TODO: get the url
-		if (document.getElementById("tag00").value == "Insert image URL here...")
-			alert("Error: Please enter a valid URL");
-		else if (valid() ==  0) 
-			alert("Error: Please add at least one tag from each category");
-		url = document.getElementById("tag00").value;
-		var mesg = "";
-		mesg = mesg +  
-			+ summer + winter + fall + spring 
-			+ belowten + tentothirty + thirtytofifty + fiftytoseventy 
-			+ seventytoninety + aboveninety + casual + business + party 
-			+ "-" + url;
-		console.log(mesg);
-		
-		// write to the log file
-		var dlg = false;
-		with (document) {
-			ir=createElement('iframe');
-			ir.id='ifr';
-			ir.location='about.blank';
-			ir.style.display='none';
-			body.appendChild(ir);
-			with (getElementById('ifr').contentWindow.document) {
-				open("text/plain", "replace");
-				charset = "utf-8";
-				write(mesg);
-				close();
-				document.charset = "utf-8";
-				dlg = execCommand('SaveAs', false, 'log.txt');
-			}
-			body.removeChild(ir);
+
+	<script>
+		var url = "";
+		var summer = 0;
+		var winter = 0;
+		var fall = 0;
+		var spring = 0;
+		var belowten = 0;
+		var tentothirty = 0;
+		var thirtytofifty = 0;
+		var fiftytoseventy = 0;
+		var seventytoninety = 0;
+		var aboveninety = 0;
+		var casual = 0;
+		var business = 0;
+		var party = 0;
+
+		function submit() {
+			// TODO: get the url
+			if (document.getElementById("tag00").value == "Insert image URL here...")
+				alert("Error: Please enter a valid URL : ")
+
+			// else if the url entered is not valid
+			else if (!ValidURL(document.getElementById("tag00").value))
+				alert("Error: Entered url is not valid");
+			// the url entered is valid. We want to check if the entered url is a picture
+			else if (!isPicture(document.getElementById("tag00").value))
+				alert("Error: Entered url is not a png or jpg or jpeg or gif");
+			else if (valid() == 0)
+				alert("Error: Please add at least one tag from each category");
+			url = document.getElementById("tag00").value;
+			var mesg = "";
+			mesg = mesg + +summer + winter + fall + spring + belowten
+					+ tentothirty + thirtytofifty + fiftytoseventy
+					+ seventytoninety + aboveninety + casual + business + party
+					+ "-" + url;
+			console.log(mesg);
+
+			// write to the log file
+			var dlg = false;
+			with (document) {
+				ir = createElement('iframe');
+				ir.id = 'ifr';
+				ir.location = 'about.blank';
+				ir.style.display = 'none';
+				body.appendChild(ir);
+				with (getElementById('ifr').contentWindow.document) {
+					open("text/plain", "replace");
+					charset = "utf-8";
+					write(mesg);
+					close();
+					document.charset = "utf-8";
+					dlg = execCommand('SaveAs', false, 'log.txt');
+				}
+				body.removeChild(ir);
+			}			
 		}
-	}
+		
+		function isPicture(url) {
+			return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+		}
+
+		function ValidURL(str) {
+			var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+				   return regexp.test(str);
+		}
+
+		function valid() {
+			if (summer + winter + fall + spring < 1)
+				return 0;
+			else if (belowten + tentothirty + thirtytofifty + fiftytoseventy
+					+ seventytoninety + aboveninety < 1)
+				return 0;
+			else if (casual + business + party < 1)
+				return 0;
+			else
+				return 1;
+		}
+
+		// add listeners for each button
+		document.getElementById("tag01").addEventListener("click", function() {
+			summer = 1 - summer;
+		}, false);
+		document.getElementById("tag02").addEventListener("click", function() {
+			winter = 1 - winter;
+		}, false);
+		document.getElementById("tag03").addEventListener("click", function() {
+			fall = 1 - fall;
+		}, false);
+		document.getElementById("tag04").addEventListener("click", function() {
+			spring = 1 - spring;
+		}, false);
+		document.getElementById("tag05").addEventListener("click", function() {
+			belowten = 1 - belowten;
+		}, false);
+		document.getElementById("tag06").addEventListener("click", function() {
+			tentothirty = 1 - tentothirty;
+		}, false);
+		document.getElementById("tag07").addEventListener("click", function() {
+			thirtytofifty = 1 - thirtytofifty;
+		}, false);
+		document.getElementById("tag08").addEventListener("click", function() {
+			fiftytoseventy = 1 - fiftytoseventy;
+		}, false);
+		document.getElementById("tag09").addEventListener("click", function() {
+			seventytoninety = 1 - seventytoninety;
+		}, false);
+		document.getElementById("tag10").addEventListener("click", function() {
+			aboveninety = 1 - aboveninety;
+		}, false);
+		document.getElementById("tag11").addEventListener("click", function() {
+			casual = 1 - casual;
+		}, false);
+		document.getElementById("tag12").addEventListener("click", function() {
+			business = 1 - business;
+		}, false);
+		document.getElementById("tag13").addEventListener("click", function() {
+			party = 1 - party;
+		}, false);
+	</script>
 	
-	function valid() {
-		if (summer + winter + fall + spring < 1) 
-			return 0;
-		else if (belowten + tentothirty + thirtytofifty + fiftytoseventy + seventytoninety + aboveninety < 1) 
-			return 0;
-		else if (casual + business + party < 1) 
-			return 0;
-		else  
-			return 1;
-	}
+	<?php
+		// Connect to database server
+		mysql_connect("localhost", "", "") or die (mysql_error ());
 	
-	// add listeners for each button
-	document.getElementById("tag01").addEventListener("click", function() {
-		summer = 1 - summer;
-	}, false);
-	document.getElementById("tag02").addEventListener("click", function() {
-		winter = 1 - winter;
-	}, false);
-	document.getElementById("tag03").addEventListener("click", function() {
-		fall = 1 - fall;
-	}, false);
-	document.getElementById("tag04").addEventListener("click", function() {
-		spring = 1 - spring;
-	}, false);
-	document.getElementById("tag05").addEventListener("click", function() {
-		belowten = 1 - belowten;
-	}, false);
-	document.getElementById("tag06").addEventListener("click", function() {
-		tentothirty = 1 - tentothirty;
-	}, false);
-	document.getElementById("tag07").addEventListener("click", function() {
-		thirtytofifty = 1 - thirtytofifty;
-	}, false);
-	document.getElementById("tag08").addEventListener("click", function() {
-		fiftytoseventy = 1 - fiftytoseventy;
-	}, false);
-	document.getElementById("tag09").addEventListener("click", function() {
-		seventytoninety = 1 - seventytoninety;
-	}, false);
-	document.getElementById("tag10").addEventListener("click", function() {
-		aboveninety = 1 - aboveninety;
-	}, false);
-	document.getElementById("tag11").addEventListener("click", function() {
-		casual = 1 - casual;
-	}, false);
-	document.getElementById("tag12").addEventListener("click", function() {
-		business = 1 - business;
-	}, false);
-	document.getElementById("tag13").addEventListener("click", function() {
-		party = 1 - party;
-	}, false);
+		// Select database
+		mysql_select_db("shiki") or die(mysql_error());
 	
+		// The SQL statement is built
 	
+		$strSQL = "INSERT INTO recommendations(";
 	
-</script>
+		$strSQL = $strSQL . "FirstName, ";
+		$strSQL = $strSQL . "LastName, ";
 	
+		$strSQL = $strSQL . "Phone, ";
+		$strSQL = $strSQL . "BirthDate) ";
 	
-	 
+		$strSQL = $strSQL . "VALUES(";
+	
+		$strSQL = $strSQL . "'Gus', ";
+	
+		$strSQL = $strSQL . "'Goose', ";
+		$strSQL = $strSQL . "'99887766', ";
+	
+		$strSQL = $strSQL . "'1964-04-20')";
+	
+		// The SQL statement is executed 
+		mysql_query($strSQL) or die (mysql_error());
+	
+		// Close the database connection
+		mysql_close();
+	?>
+	
 </html>

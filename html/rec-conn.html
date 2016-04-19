@@ -1,0 +1,22 @@
+<?php
+
+$mysqli = mysqli_connect("shiki.cp2brcfro0u7.us-west-2.rds.amazonaws.com", "shiki_master", "mypassword", "shiki");
+if (mysqli_connect_errno($mysqli)) {
+    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+} else {
+	echo 
+}
+
+$res = mysqli_query($mysqli, "DESCRIBE recommendations");
+echo "FUCK THIS";
+$row = mysqli_fetch_assoc($res);
+
+echo $mysqli->host_info . "\n";
+echo $row['_msg'] . "\n";
+
+$rec = $mysqli->query("DESCRIBE recommendations");
+
+echo $rec . "\n";
+
+
+?>
