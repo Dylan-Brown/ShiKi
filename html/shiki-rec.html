@@ -46,17 +46,25 @@
 
 		function submit() {
 			// TODO: get the url
-			if (document.getElementById("tag00").value == "Insert image URL here...")
+			if (document.getElementById("tag00").value == "Insert image URL here...") {
 				alert("Error: Please enter a valid URL : ")
+				return;
+			}
 
 			// else if the url entered is not valid
-			else if (!ValidURL(document.getElementById("tag00").value))
-				alert("Error: Entered url is not valid");
+			else if (!ValidURL(document.getElementById("tag00").value)) {
+				alert("Error: Entered url is not valid"); 
+				return;
+			}
 			// the url entered is valid. We want to check if the entered url is a picture
-			else if (!isPicture(document.getElementById("tag00").value))
+			else if (!isPicture(document.getElementById("tag00").value)) {
 				alert("Error: Entered url is not a png or jpg or jpeg or gif");
-			else if (valid() == 0)
+				return;
+			}
+			else if (valid() == 0) {
 				alert("Error: Please add at least one tag from each category");
+				return;
+			}
 			url = document.getElementById("tag00").value;
 			var mesg = "";
 			mesg = mesg + +summer + winter + fall + spring + belowten
@@ -97,7 +105,7 @@
 			};
 			xmlhttp.open("GET", "http://localhost/html/shiki-rec.php?q=" + msg, true);
 			xmlhttp.send();
-			location.href = 'http://localhost/html/shiki-rec.php?q=' + msg;
+			//location.href = 'http://localhost/html/shiki-rec.php?q=' + msg;
 			//location.reload();
 		}
 
