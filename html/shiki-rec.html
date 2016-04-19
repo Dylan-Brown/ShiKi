@@ -2,10 +2,12 @@
 <html>
 <title>ShiKi</title>
 <meta name="author" content="ShiKi">
-<p class="test" id="test">Recommendation page! Please give a link to
-	your recommended outfit and tag it appropriately.</p>
-	<body background="images/Background.jpg">
+<body background="images/Background.jpg">
+	<p><h1>SHIKI <img src="images/logo.png" align="right" width="200" height="auto" onclick="onLogo();" id="logo"> </h1> </p>
+	<p class="test" id="test">Recommendation page! Please give a link to
+		your recommended outfit and tag it appropriately.</p>
 
+		
 		<form action="">
 			<textarea name="text" id="tag00" cols="30" rows="1">Insert image URL here...</textarea>
 			<br> 
@@ -25,27 +27,27 @@
 			<input type="checkbox" id="tag12" name="weather tags" value="Business">Business 
 			<input type="checkbox" id="tag13" name="weather tags" value="Party">Party
 		</form>
-	</p>
 
-	<input type="submit" id="submit" onclick="submit()" value="Submit">
 
-	<script>
-		var url = "";
-		var summer = 0;
-		var winter = 0;
-		var fall = 0;
-		var spring = 0;
-		var belowten = 0;
-		var tentothirty = 0;
-		var thirtytofifty = 0;
-		var fiftytoseventy = 0;
-		var seventytoninety = 0;
-		var aboveninety = 0;
-		var casual = 0;
-		var business = 0;
-		var party = 0;
+		<input type="submit" id="submit" onclick="submit()" value="Submit">
 
-		function submit() {
+		<script>
+			var url = "";
+			var summer = 0;
+			var winter = 0;
+			var fall = 0;
+			var spring = 0;
+			var belowten = 0;
+			var tentothirty = 0;
+			var thirtytofifty = 0;
+			var fiftytoseventy = 0;
+			var seventytoninety = 0;
+			var aboveninety = 0;
+			var casual = 0;
+			var business = 0;
+			var party = 0;
+
+			function submit() {
 			// TODO: get the url
 			if (document.getElementById("tag00").value == "Insert image URL here...") {
 				alert("Error: Please enter a valid URL : ")
@@ -68,9 +70,11 @@
 			}
 			url = document.getElementById("tag00").value;
 			var mesg = "";
+
 			mesg = mesg + +summer + winter + fall + spring + belowten
 			+ tentothirty + thirtytofifty + fiftytoseventy
 			+ seventytoninety + aboveninety + casual + business + party + "-" + url;
+			
 			sendMsg(mesg);
 			window.location="shiki-confirmation.html";
 			
@@ -109,6 +113,10 @@
 			xmlhttp.send();
 			//location.href = 'http://localhost/html/shiki-rec.php?q=' + msg;
 			//location.reload();
+		}
+
+		function onLogo() {
+			window.location="shiki-home.html";
 		}
 
 		// add listeners for each button

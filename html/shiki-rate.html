@@ -38,7 +38,7 @@ img {
 <b><img src="https://onlytheimportantstuffinfashion.files.wordpress.com/2013/01/channing-tatum-details-magazine-dg-denim-shirt-jt2.jpg"
  width="200" height="auto" id="img1"/></b> 
 
-<form action="">
+<form action="" id="radioImg1">
 	<input type="radio" id = "rate" name="rate" value="1">1
 	<input type="radio" id = "rate" name="rate" value="2">2
 	<input type="radio" id = "rate" name="rate" value="3">3
@@ -55,7 +55,7 @@ img {
 <b><img src="http://www.celebritieswatches.com/wp-content/uploads/2013/06/Channing-Tatum_Georg-Jenson.jpg"
  width="200" height="auto" id="img2"/></b> 
 
-<form action="">
+<form action="" id="radioImg2">
 	<input type="radio" id = "rate" name="rate" value="1">1
 	<input type="radio" id = "rate" name="rate" value="2">2
 	<input type="radio" id = "rate" name="rate" value="3">3
@@ -72,7 +72,7 @@ img {
 <b><img src="http://hairstyleholic.com/wp-content/uploads/2014/04/Channing-Tatum-Trend-Hairstyle-And-Fashion.jpg"
  width="200" height="auto" id="img3" align="center" /></b> 
 
-<form action="">
+<form action="" id="radioImg3">
 	<input type="radio" id = "rate" name="rate" value="1">1
 	<input type="radio" id = "rate" name="rate" value="2">2
 	<input type="radio" id = "rate" name="rate" value="3">3
@@ -94,6 +94,8 @@ img {
 		var tag = "DUMMY TAG";
 		var w = window.innerWidth/4;
 		var logoW = document.getElementById('logo').clientWidth;
+		var resultsString; //DO NOT TOUCH UNLESS YOU'RE ANAKA OR JUDY
+		var resultsArray; //DO NOT TOUCH UNLESS YOU'RE ANAKA OR JUDY
 
 
 		window.onload = load();
@@ -112,8 +114,13 @@ img {
 
 		function submit() {
 			//TODO: GET ALL INPUT AND SEND TO shiki-rate-send.php
-
+			setResults();
 			window.location="shiki-confirmation.html";
+		}
+
+		function setResults() {
+			//WRITE HERE FORMAT OF STRING 
+			//ex: urllink,#,urllink,#,...
 		}
 
 		function onLogo() {
