@@ -14,6 +14,24 @@ function dbConnect() {
 	return $db;
 }
 
+// determine if this url is already in the database
+function dbDuplicate($_db, $_url) {
+	echo "<strong>in dbDuplicate<br></strong>";
+	$_sql = <<<SQL
+	SELECT * FROM recommendations
+	WHERE url='$_url';
+SQL;
+echo "<strong>2<br></strong>";
+	$_result = $_db->query($_sql);
+	$count = 0;
+	foreach ($_result as $item_s) {
+		$count = $count + 1;
+	}
+	if ($count == 0)
+		return false;   
+	return true;
+}
+
 // default variables 
 $url = "";
 $summer = 0;
@@ -35,8 +53,9 @@ $db = dbConnect();
 
 // get the javascript variables
 $q = $_REQUEST["q"];
+//  $q = '0000000000000-http://thebestfashionblog.com/wp-content/uploads/2014/02/Gucci-Fall-Winter-2014-2015-New-Womens-Clothing-Styles-3.jpg';
 // echo "<strong>ECHOING REQUEST:<br></strong>";
-// echo "<strong>$q<br></strong>";
+echo "<strong>$q<br></strong>";
 
 if ($q !== "") {
     $q = strtolower($q);
@@ -59,26 +78,50 @@ if ($q !== "") {
 	$business = (int) $nums[11];
 	$party = (int) $nums[12];
 	
-// make the request
-$sql = <<<SQL
-    INSERT INTO recommendations
-    VALUES ('$url', $summer, $winter, $fall, $spring, $belowten, $tentothirty, $thirtytofifty, $fiftytoseventy, $seventytoninety, $aboveninety, $casual, $business, $party, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0);
+	// determine if there is a duplicate recommendation
+	if (!dbDuplicate($db, $url)) {
+		// no duplicate found; make the request
+		$sql = <<<SQL
+			INSERT INTO recommendations
+			VALUES ('$url', $summer, $winter, $fall, $spring, $belowten, $tentothirty, $thirtytofifty, $fiftytoseventy, $seventytoninety, $aboveninety, $casual, $business, $party, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0);
 SQL;
 
-// echo "<strong>$sql<br></strong>";
+		// confirm success of request
+		$result = $db->query($sql);
+		if(!$result){
+			echo "<strong>There was an error running the query: $db->error<br></strong>";
+			die('There was an error running the query [' . $db->error . ']');
+		} else {
+			echo "<strong>Successful query!<br></strong>";
+		}
+		
+	} else {
+		// duplicate found; update the row
+		echo "<strong>Duplicate found!<br></strong>";
+		
+		$sql = <<<SQL
+			UPDATE recommendations
+			SET summer = $summer, winter=$winter, fall=$fall, spring=$spring, belowten=$belowten, tentothirty=$tentothirty, thirtytofifty=$thirtytofifty, fiftytoseventy=$fiftytoseventy, seventytoninety=$seventytoninety, aboveninety=$aboveninety, casual=$casual, business=$business, party=$party
+			WHERE url='$url';
+SQL;
+		$result = $db->query($sql);
+		if(!$result){
+			echo "<strong>There was an error running the query: $db->error<br></strong>";
+			die('There was an error running the query [' . $db->error . ']');
+		} else {
+			echo "<strong>Successful updating row!<br></strong>";
+		}
+		
+		
+		/*
+		 * UPDATE Customers
+SET ContactName='Alfred Schmidt', City='Hamburg'
+WHERE CustomerName='Alfreds Futterkiste';
+		 */
+	}
 
-// confirm success of request
-$result = $db->query($sql);
-if(!$result){
-	echo "<strong>There was an error running the query: $db->error<br></strong>";
-    die('There was an error running the query [' . $db->error . ']');
-} else {
-	echo "<strong>Successful query!<br></strong>";
-}
+	
 	
 }
-
-header("Location: shiki-home.html");
-exit;
 
 ?>
