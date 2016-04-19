@@ -1,10 +1,9 @@
 <?php
-echo "<strong>Page: Send in a recommendation to the database.<br></strong>";
+echo "<strong>PHP: Send in a recommendation to the database.<br></strong>";
 
 // connect to the databse
 function dbConnect() {
 	$db = new mysqli("shiki.cp2brcfro0u7.us-west-2.rds.amazonaws.com", "shiki_master", "mypassword", "shiki");
-	
 	if($db->connect_errno > 0){
 		echo "<strong>Unable to connect to database</strong>";
 	    die('Unable to connect to database [' . $db->connect_error . ']');
@@ -14,7 +13,7 @@ function dbConnect() {
 	return $db;
 }
 
-// determine if this url is already in the database
+// return true if this url is already in the database
 function dbDuplicate($_db, $_url) {
 	echo "<strong>in dbDuplicate<br></strong>";
 	$_sql = <<<SQL
@@ -48,14 +47,9 @@ $casual = 0;
 $business = 0;
 $party = 0;
 
-// our database
-$db = dbConnect();
-
 // get the javascript variables
 $q = $_REQUEST["q"];
-//  $q = '0000000000000-http://thebestfashionblog.com/wp-content/uploads/2014/02/Gucci-Fall-Winter-2014-2015-New-Womens-Clothing-Styles-3.jpg';
-// echo "<strong>ECHOING REQUEST:<br></strong>";
-echo "<strong>$q<br></strong>";
+// echo "<strong>$q<br></strong>";
 
 if ($q !== "") {
     $q = strtolower($q);
@@ -77,6 +71,9 @@ if ($q !== "") {
 	$casual = (int) $nums[10];
 	$business = (int) $nums[11];
 	$party = (int) $nums[12];
+	
+	// connect to our database
+	$db = dbConnect();
 	
 	// determine if there is a duplicate recommendation
 	if (!dbDuplicate($db, $url)) {
@@ -104,6 +101,8 @@ SQL;
 			SET summer = $summer, winter=$winter, fall=$fall, spring=$spring, belowten=$belowten, tentothirty=$tentothirty, thirtytofifty=$thirtytofifty, fiftytoseventy=$fiftytoseventy, seventytoninety=$seventytoninety, aboveninety=$aboveninety, casual=$casual, business=$business, party=$party
 			WHERE url='$url';
 SQL;
+
+		// confirm success of request
 		$result = $db->query($sql);
 		if(!$result){
 			echo "<strong>There was an error running the query: $db->error<br></strong>";
@@ -112,16 +111,7 @@ SQL;
 			echo "<strong>Successful updating row!<br></strong>";
 		}
 		
-		
-		/*
-		 * UPDATE Customers
-SET ContactName='Alfred Schmidt', City='Hamburg'
-WHERE CustomerName='Alfreds Futterkiste';
-		 */
 	}
-
-	
-	
 }
 
 ?>

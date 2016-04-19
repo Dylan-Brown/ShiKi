@@ -43,18 +43,32 @@ height = auto ></h1> </center></p>
 		var party = 0;
 
 		function submit() {
-			if (valid() == 0)
+			console.log("submit button clicked");
+			if (valid() == 0) {
 				alert("Error: Please select at least one tag");
-			url = document.getElementById("tag00").value;
+				return;
+			}	
+			
 			var mesg = "";
 			mesg = mesg + summer + winter + fall + spring + belowten
 					+ tentothirty + thirtytofifty + fiftytoseventy
 					+ seventytoninety + aboveninety + casual + business + party;
 			console.log(mesg);
-
-			}
-			document.getElementById("option").innerHTML = "Go to search.";
+			
+			sendMsg(mesg);
 			window.location="shiki-displaySearchresults.html";
+		}
+		
+		function sendMsg(msg) {
+			console.log(msg);
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					console.log("readyState = 4, status = 200");
+				}
+			};
+			xmlhttp.open("GET", "https://fling.seas.upenn.edu/~judyweng/cgi-bin/shiki-search.php?q=" + msg, true);
+			xmlhttp.send();
 		}
 		
 
