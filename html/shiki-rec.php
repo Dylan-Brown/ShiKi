@@ -17,7 +17,11 @@ function dbConnect() {
 // our database
 $db = dbConnect();
 
-
+/*$sql = <<<SQL
+    USE shiki
+    INSERT INTO recommendations (url, summer, winter, fall, spring, belowten, tentothirty, thirtytofifty, fiftytoseventy, seventytoninety, aboveninety, casual, business,  party,  avg_rating, num_ratings)
+    VALUES ( ...  , 0.000, 0)
+SQL;*/
 
 
 ?>
