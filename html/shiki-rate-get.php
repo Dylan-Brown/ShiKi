@@ -33,6 +33,7 @@ echo 'sql tag is:' . $sql . '<br>';
 // query the database
 $result = $db->query($sql);
 $urls = [];
+array_push($urls, $tag);
 if(!$result){
 	echo "<strong>There was an error running the query: $db->error<br></strong>";
     die('There was an error running the query [' . $db->error . ']');
