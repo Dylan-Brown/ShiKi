@@ -8,6 +8,7 @@
 	<meta name="author" content="ShiKi">
 	<meta http-equiv="content-language" content="en">
 	<body>
+		<p><h1>SHIKI <img src="images/logo.png" align="right" width="200" height="auto" onclick="onLogo();" id="logo"> </h1> </p>
 		<p style="font-size:large;"><strong>Thank you for your contribution!</strong>.</p>
 		<p class="option" id="option">Select an option.</p>
 
@@ -56,6 +57,9 @@
 				document.getElementById("option").innerHTML = "Go to search.";
 				window.location="shiki-search.html";
 			}
+			function onLogo() {
+				window.location="shiki-home.html";
+			}	
 		</script>
 	</body>
 	</html>
