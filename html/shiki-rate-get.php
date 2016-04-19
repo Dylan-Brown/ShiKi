@@ -17,29 +17,41 @@ function dbConnect() {
 // our database
 $db = dbConnect();
 
-// query the database
+// find a random tag to rate
+$tags = Array('summer','winter', 'fall', 'spring', 'belowten', 'tentothirty', 'fiftytoseventy', 'seventytoninety', 'aboveninety', 'casual', 'business', 'party');
+$tag = $tags[array_rand($tags, 1)];
+echo 'selected tag is:' . $tag . '<br>';
+
+// form the query
 $sql = <<<SQL
 	SELECT *
     FROM `recommendations`
-    WHERE `summer` = 0
+    WHERE `$tag` = 1
 SQL;
+echo 'sql tag is:' . $sql . '<br>';
+
+// query the database
 $result = $db->query($sql);
+$urls = [];
 if(!$result){
 	echo "<strong>There was an error running the query: $db->error<br></strong>";
     die('There was an error running the query [' . $db->error . ']');
-}
-
-// print each of the array keys and their values
-function printRow($r) {
-	foreach (array_keys($r) as $k) {
-		echo $k . ': ' . $r[$k] . '<br />';
+} else {
+	// successful; gather the results
+	foreach ($result as $item) {
+		array_push($urls, $item['url']);
 	}
 }
 
-// print each row
-while($row = $result->fetch_assoc()){
-	echo '<br>';
-    printRow($row);
+
+// TODO: Pass the results back to the javascript
+
+/*
+// print the results
+foreach ($urls as $url) {
+	echo 'result is: ' . $url . '<br>';
 }
+*/
+
 
 ?>

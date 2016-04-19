@@ -40,13 +40,10 @@ $q = $_REQUEST["q"];
 
 if ($q !== "") {
     $q = strtolower($q);
-    $strlen=strlen($q);
-    
-    // TODO: Values not correctly gotten, please make sure printing right
-    $nums = str_split($q);
-    
+    $strlen=strlen($q);  
     
     // get the invidual values
+    $nums = str_split($q);
     $url = substr($q, 14, $strlen);
     $summer = (int) $nums[0];
 	$winter = (int) $nums[1];
