@@ -62,7 +62,7 @@ if ($q !== "") {
 // make the request
 $sql = <<<SQL
     INSERT INTO recommendations
-    VALUES ('$url', $summer, $winter, $fall, $spring, $belowten, $tentothirty, $thirtytofifty, $fiftytoseventy, $seventytoninety, $aboveninety, $casual, $business, $party, 0.000, 0);
+    VALUES ('$url', $summer, $winter, $fall, $spring, $belowten, $tentothirty, $thirtytofifty, $fiftytoseventy, $seventytoninety, $aboveninety, $casual, $business, $party, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0, 0.000, 0);
 SQL;
 
 // echo "<strong>$sql<br></strong>";
