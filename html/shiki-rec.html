@@ -62,10 +62,8 @@
 			var mesg = "";
 			mesg = mesg + +summer + winter + fall + spring + belowten
 			+ tentothirty + thirtytofifty + fiftytoseventy
-			+ seventytoninety + aboveninety + casual + business + party
-			+ "-" + url;
-			console.log(mesg);
-			sendMsg(msg);
+			+ seventytoninety + aboveninety + casual + business + party + "-" + url;
+			sendMsg(mesg);
 			
 		}
 		
@@ -91,18 +89,18 @@
 		}
 
 		function sendMsg(msg) {
-
+			console.log(msg);
 			var xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange = function() {
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-					document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+					console.log("readyState = 4, status = 200");
 				}
 			};
-			xmlhttp.open("GET", "shiki-rec.php?q=" + str, true);
+			xmlhttp.open("GET", "http://localhost/html/shiki-rec.php?q=" + msg, true);
 			xmlhttp.send();
+			location.href = 'http://localhost/html/shiki-rec.php?q=' + msg;
+			//location.reload();
 		}
-	}
-}
 
 		// add listeners for each button
 		document.getElementById("tag01").addEventListener("click", function() {
