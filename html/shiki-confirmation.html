@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+
+	<title>ShiKi</title>
+	<meta name="author" content="ShiKi">
+	<meta http-equiv="content-language" content="en">
+	<body>
+		<p style="font-size:large;"><strong>Thank you for your contribution!</strong>.</p>
+		<p class="option" id="option">Select an option.</p>
+
+		<div style="position: relative;" class="rec" id="rec"> 
+			<img src="images/rec.png" width="500" height="168" onclick="onRecommend();" />
+		</div>
+
+		<div style="position: relative;" class="rate" id="rate"> 
+			<img src="images/rate.png" width="500" height="168" onclick="onRate();" />
+		</div>
+
+		<div style="position: relative;" class="search" id="search"> 
+			<img src="images/search.png" width="500" height="168" onclick="onSearch();" />
+		</div>
+
+		<style>
+			p.option{
+				position: relative;
+				left: 240px;
+				font-size: 2.0em;
+			}
+			div.rec {
+				position: relative;
+				left: 100px;
+			}
+			div.rate {
+				position: relative;
+				left: 100px;
+			}
+			div.search {
+				position: relative;
+				left: 100px;
+			}
+		</style>
+
+		<script type="text/javascript">
+			function onRecommend() {
+				document.getElementById("option").innerHTML = "Go to recommend.";
+				window.location="shiki-rec.html";
+			}
+			function onRate() {
+				document.getElementById("option").innerHTML = "Go to rate.";
+				window.location="shiki-rate.html";
+			}
+			function onSearch() {
+				document.getElementById("option").innerHTML = "Go to search.";
+				window.location="shiki-search.html";
+			}
+		</script>
+	</body>
+	</html>
