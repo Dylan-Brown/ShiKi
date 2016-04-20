@@ -5,10 +5,7 @@ echo "<strong>PHP: Search the database.<br></strong>";
 function dbConnect() {
 	$db = new mysqli("shiki.cp2brcfro0u7.us-west-2.rds.amazonaws.com", "shiki_master", "mypassword", "shiki");
 	if($db->connect_errno > 0){
-		echo "<strong>Unable to connect to database</strong>";
 	    die('Unable to connect to database [' . $db->connect_error . ']');
-	} else {
-		echo "<strong>Connected to db: $db->host_info<br><br></strong>";
 	}
 	return $db;
 }
@@ -18,14 +15,12 @@ $db = dbConnect();
 
 // get the javascript variables
 $q = $_REQUEST["q"];
-echo '<div>$q<div>';
 
 if ($q != "") {
 	$nums = str_split($q);
 	
 	$vals = [];
 	$names = [];
-	echo 'starting the nums<div>';
 	if ((int) $nums[0] == 1) {
 		array_push($names, 'summer');
 	}
@@ -66,10 +61,6 @@ if ($q != "") {
 		array_push($names, 'party');
 	} 
 	
-	foreach ($names as $name) {
-		echo 'name=' . $name . '<div>';
-	}
-	
 	// create where clause of sql
 	$where = "";
 	$c = count($names);
@@ -79,31 +70,25 @@ if ($q != "") {
 	$d = $c-1;
 	$where = $where . "$names[$d]=1";
 	
-	echo $where . '<div>';
-	
 	// query the database
 	$sql = <<<SQL
 		SELECT *
 		FROM recommendations
 		WHERE $where
 SQL;
-	
-	echo $sql . '<div>';
 
 	$result = $db->query($sql);
 	if (!$result) {
 		// no results or a query with the error
-		echo "<strong>There was an error running the query: $db->error<br></strong>";
 		die('There was an error running the query [' . $db->error . ']');
 	} else {
 		// there are results; put into the array (or string)
 		$urls = [];
 		$urls_s = "";
-		foreach ($result as $item_s) {
-			foreach ($item_s as $item) {
-				$urls_s = $urls_s . $item['url'];
-				array_push($urls, $item['url']);
-			}
+		foreach ($result as $item) {
+			// echo $item['url'] . '<div><div>';
+			$urls_s = $urls_s . $item['url'] . ',';
+			array_push($urls, $item['url']);
 		}
 		
 		// TODO: Pass results to display search result

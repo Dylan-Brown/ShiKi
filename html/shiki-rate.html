@@ -1,189 +1,262 @@
 <!-- First put in ten URLs and then add tags to the page. 
-We want to be able to drag and drop -->
+	We want to be able to drag and drop -->
 
-<!DOCTYPE html>
-<html>
-<head>
-<title>ShiKi</title>
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title>ShiKi</title>
 
-<style>
-	h1 {
-		text-align: center;
-	}
+		<p><h1>SHIKI <img src="images/logo.png" align="right" width="200" height="auto" onclick="onLogo();" id="logo"> </h1> </p>
 
-	h2 {
-		text-align: left;
-	}
+		<h2 id = "thisPage">Rate Page based on the individual Tag provided</h2>
+		<h2 id = "instructions"></h2>
+		<h2 id = "moreInstructions">Temperatures are in Fahrenheit.</h2>
+	</head>
 
-	h3 {
-		text-align: right;
-	} 
-	img {
-		width: 51;
-		height: auto;
-		align="right"
-	}
-</style>
+	<body background="images/Background.jpg" style="border:1px solid black;">
+		<center>
 
-<p><h1>SHIKI <img src="images/logo.png" align="right" width="200" height="auto" onclick="onLogo();" id="logo"> </h1> </p>
+			<b><img id = "url1" width="250" height="auto" id="img1"/></b> 
 
-<h2 id = "instructions" align="center"></h2>
+			<form action="form_action.asp" id="radioImg1" name = "radio1">
+				<input type="radio" name = "rate" onclick = "myFunction1(this.value)" value="1">1
+				<input type="radio" name = "rate" onclick = "myFunction1(this.value)" value="2">2
+				<input type="radio" name = "rate" onclick = "myFunction1(this.value)" value="3">3
+				<input type="radio" name = "rate" onclick = "myFunction1(this.value)" value="4">4
+				<input type="radio" name = "rate" onclick = "myFunction1(this.value)" value="5">5 
+				<input type="radio" name = "rate" onclick = "myFunction1(this.value)" value="6">6 
+				<input type="radio" name = "rate" onclick = "myFunction1(this.value)" value="7">7  
+				<input type="radio" name = "rate" onclick = "myFunction1(this.value)" value="8">8 
+				<input type="radio" name = "rate" onclick = "myFunction1(this.value)" value="9">9 
+				<input type="radio" name = "rate" onclick = "myFunction1(this.value)" value="10">10
+			</form>
 
-</head>
-<body background="images/Background.jpg" style="border:1px solid black;">
-<center>
+			<br><br>
+			<b><img id = "url2" width="250" height="auto" id="img2"/></b> 
+
+			<form action="" id="radioImg2" name = "radio2">
+				<input type="radio" name = "rate" onclick = "myFunction2(this.value)" value="1">1
+				<input type="radio" name = "rate" onclick = "myFunction2(this.value)" value="2">2
+				<input type="radio" name = "rate" onclick = "myFunction2(this.value)" value="3">3
+				<input type="radio" name = "rate" onclick = "myFunction2(this.value)" value="4">4
+				<input type="radio" name = "rate" onclick = "myFunction2(this.value)" value="5">5 
+				<input type="radio" name = "rate" onclick = "myFunction2(this.value)" value="6">6 
+				<input type="radio" name = "rate" onclick = "myFunction2(this.value)" value="7">7  
+				<input type="radio" name = "rate" onclick = "myFunction2(this.value)" value="8">8 
+				<input type="radio" name = "rate" onclick = "myFunction2(this.value)" value="9">9 
+				<input type="radio" name = "rate" onclick = "myFunction2(this.value)" value="10">10
+			</form>
+
+			<br><br>
+			<b><img id = "url3" width="250" height="auto" id="img3" align="center" /></b> 
+
+			<form action="" id="radioImg3" name = "radio3">
+				<input type="radio" name = "rate" onclick = "myFunction3(this.value)" value="1">1
+				<input type="radio" name = "rate" onclick = "myFunction3(this.value)" value="2">2
+				<input type="radio" name = "rate" onclick = "myFunction3(this.value)" value="3">3
+				<input type="radio" name = "rate" onclick = "myFunction3(this.value)" value="4">4
+				<input type="radio" name = "rate" onclick = "myFunction3(this.value)" value="5">5 
+				<input type="radio" name = "rate" onclick = "myFunction3(this.value)" value="6">6 
+				<input type="radio" name = "rate" onclick = "myFunction3(this.value)" value="7">7  
+				<input type="radio" name = "rate" onclick = "myFunction3(this.value)" value="8">8 
+				<input type="radio" name = "rate" onclick = "myFunction3(this.value)" value="9">9 
+				<input type="radio" name = "rate" onclick = "myFunction3(this.value)" value="10">10
+			</form>
+
+			<br><br>
+
+			<button id="submit" onclick="submit()">Submit</button>
+
+			<br><br>
+		</center>
 
 
-<b><img id = "url1" width="250" height="auto" id="img1"/></b> 
-
-<form action="form_action.asp" id="radioImg1" name = "radio1">
-	<input type="radio" name = "rate" onclick = "myFunction1(this.value)" value="1">1
-	<input type="radio" name = "rate" onclick = "myFunction1(this.value)" value="2">2
-	<input type="radio" name = "rate" onclick = "myFunction1(this.value)" value="3">3
-	<input type="radio" name = "rate" onclick = "myFunction1(this.value)" value="4">4
-	<input type="radio" name = "rate" onclick = "myFunction1(this.value)" value="5">5 
-	<input type="radio" name = "rate" onclick = "myFunction1(this.value)" value="6">6 
-	<input type="radio" name = "rate" onclick = "myFunction1(this.value)" value="7">7  
-	<input type="radio" name = "rate" onclick = "myFunction1(this.value)" value="8">8 
-	<input type="radio" name = "rate" onclick = "myFunction1(this.value)" value="9">9 
-	<input type="radio" name = "rate" onclick = "myFunction1(this.value)" value="10">10
-</form>
-
-<br><br>
-<b><img id = "url2" width="250" height="auto" id="img2"/></b> 
-
-<form action="" id="radioImg2" name = "radio2">
-	<input type="radio" name = "rate" onclick = "myFunction2(this.value)" value="1">1
-	<input type="radio" name = "rate" onclick = "myFunction2(this.value)" value="2">2
-	<input type="radio" name = "rate" onclick = "myFunction2(this.value)" value="3">3
-	<input type="radio" name = "rate" onclick = "myFunction2(this.value)" value="4">4
-	<input type="radio" name = "rate" onclick = "myFunction2(this.value)" value="5">5 
-	<input type="radio" name = "rate" onclick = "myFunction2(this.value)" value="6">6 
-	<input type="radio" name = "rate" onclick = "myFunction2(this.value)" value="7">7  
-	<input type="radio" name = "rate" onclick = "myFunction2(this.value)" value="8">8 
-	<input type="radio" name = "rate" onclick = "myFunction2(this.value)" value="9">9 
-	<input type="radio" name = "rate" onclick = "myFunction2(this.value)" value="10">10
-</form>
-
-<br><br>
-<b><img id = "url3" width="250" height="auto" id="img3" align="center" /></b> 
-
-<form action="" id="radioImg3" name = "radio3">
-	<input type="radio" name = "rate" onclick = "myFunction3(this.value)" value="1">1
-	<input type="radio" name = "rate" onclick = "myFunction3(this.value)" value="2">2
-	<input type="radio" name = "rate" onclick = "myFunction3(this.value)" value="3">3
-	<input type="radio" name = "rate" onclick = "myFunction3(this.value)" value="4">4
-	<input type="radio" name = "rate" onclick = "myFunction3(this.value)" value="5">5 
-	<input type="radio" name = "rate" onclick = "myFunction3(this.value)" value="6">6 
-	<input type="radio" name = "rate" onclick = "myFunction3(this.value)" value="7">7  
-	<input type="radio" name = "rate" onclick = "myFunction3(this.value)" value="8">8 
-	<input type="radio" name = "rate" onclick = "myFunction3(this.value)" value="9">9 
-	<input type="radio" name = "rate" onclick = "myFunction3(this.value)" value="10">10
-</form>
-
-<br><br>
-
-<button id="submit" onclick="submit()">Submit</button>
-
-<br><br>
-</center>
-
-<script type="text/javascript">
-	
-	var tag = "DUMMY TAG";
-	var w = window.innerWidth/4;
-	var logoW = document.getElementById('logo').clientWidth;
-	  
-    // TODO : JUDY, MODIFY THIS APPROPRIATELY This gets the information of the urls from the database in this form "url1, url2, url3"
-    var longstring = "https://onlytheimportantstuffinfashion.files.wordpress.com/2013/01/channing-tatum-details-magazine-dg-denim-shirt-jt2.jpg," + 
-		"http://www.celebritieswatches.com/wp-content/uploads/2013/06/Channing-Tatum_Georg-Jenson.jpg," + 
-		"http://img2.timeinc.net/instyle/images/2010/GalxMonth/01/012210-channing-tatum-400.jpg";
-    var urls = longstring.split(",");
-    var resultString; //DO NOT TOUCH UNLESS YOU'RE ANAKA OR JUDY
-    var resultsArray; //DO NOT TOUCH UNLESS YOU'RE ANAKA OR JUDY
-    var result1 = "";
-    var result2 = "";
-    var result3 = "";
-    var check = false;
-  
-	window.onload = load();
-	
-	function load() {
-		//RETRIEVE A STRING DATA FROM PHP shiki-rate-get.php
-		//set TAG to be the tag we want
-
-	    //set the top of the page to reflect that specific tag
-	    document.getElementById("instructions").innerHTML = "Rate Page based on the individual Tag provided <br/> Are the clothes in this page related to the tag " + tag + "?";
-	    document.getElementById("instructions").style.textAlign = "center";
-	    document.getElementById("instructions").style.fontSize = "medium";
-
-	    //parse the result from the php and then set the images accordingly
-	    //http://www.w3schools.com/js/tryit.asp?filename=tryjs_intro_lightbulb
-		 
-	    //we have the 3 urls that we need to display in the form of a string. 
-	   
-	    //setting the src fot the 3 images
-	    document.getElementById("url1").src = urls[0];
-	    document.getElementById("url2").src = urls[1];
-	    document.getElementById("url3").src = urls[2];
-	}
-
-	// If every image is rated, send the information to the php.
-	function submit() {
-		setResults();
-		if (check) {
-			console.log(resultString);
-			sendMsg(resultString);
-			window.location="shiki-rate-send.php?q=" + resultString;
-	    }
-	}
-
-	// Get the information from the three radio buttons above
-	function setResults() {
-		if(result1 == "" || result2 == "" || result3 == "") {
-			// not all required information was submitted; alert the user
-			alert("Please rate all pictures before you submit")
-			check = false;
-		} else { 
-			// generate the results string
-			resultString = result1 + "," + urls[0] + "," + result2 + "," + urls[1] + "," + result3 + "," + urls[2];
-			check = true;
-		}
-	}
-  
-	// Send the user's ratings to shiki-rate-send.php
-	function sendMsg(msg) {
-		console.log(msg);
-		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.onreadystatechange = function() {
-			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				console.log("readyState = 4, status = 200");
+		<style>
+			h1 {
+				text-align: center;
 			}
-		};
-		xmlhttp.open("GET", "https://fling.seas.upenn.edu/~judyweng/cgi-bin/shiki-rate-send.php?q=" + msg, true);
-		xmlhttp.send();			
-	}
-  
-	// Save result 1
-	function myFunction1(result) {
-		result1 = result;
-	}
-	  
-	// Save result 2
-	function myFunction2(result) {
-		result2 = result;
-	}
-	  
-	// Save result 3
-	function myFunction3(result) {
-		result3 = result;
-	}
 
-	// Return to the home screen 
-	function onLogo() {
-		window.location="shiki-home.html";
-	} 
+			h2 {
+				text-align: left;
+			}
 
-</script>
-</body>
+			h3 {
+				text-align: right;
+			} 
+			img {
+				width: 51;
+				height: auto;
+				align="right"
+			}
+		</style>
+
+		<script type="text/javascript">
+			var allTags = ["summer","winter", "fall", "spring", "belowten", "tentothirty", "fiftytoseventy", "seventytoninety", "aboveninety", "casual", "business", "party"];
+			var tag = "DUMMY TAG";
+			var w = window.innerWidth/4;
+			var logoW = document.getElementById('logo').clientWidth;
+
+			var longstring = "";
+			var resultString; 
+			var resultsArray; 
+			var result1 = "";
+			var result2 = "";
+			var result3 = "";
+			var check = false;
+			var readableTag = "";
+
+
+			window.onload = load();
+
+			function load() {
+				//RETRIEVE A STRING DATA FROM PHP shiki-rate-get.php
+				//set TAG to be the tag we want
+
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+						longstring = xmlhttp.responseText;
+
+						//alert(longstring);
+						setImages();
+						//parse string			
+					}
+				};
+				xmlhttp.open("GET", "https://fling.seas.upenn.edu/~judyweng/cgi-bin/shiki-rate-get.php", true);
+				xmlhttp.send();
+				//window.location="shiki-rate-get.php";
+			}
+
+			//setting all the fields
+			function setImages() {
+				var parsedString = longstring.split(",");
+				tag = parsedString[0];
+				setReadableTag();
+
+				//set the top of the page to reflect that specific tag
+				document.getElementById("instructions").innerHTML = "Are the clothes in this page related to the tag " + readableTag + "?";
+				document.getElementById("instructions").style.textAlign = "left";
+				document.getElementById("thisPage").style.textAlign = "left";
+				document.getElementById("moreInstructions").style.textAlign = "left";
+
+				//check images
+				var length = parsedString.length;
+				var one = Math.floor(Math.random() * length-1);
+				while (one === 0) {
+					one = Math.floor(Math.random() * length-1);
+				}
+				var two = Math.floor(Math.random() * length-1);
+				while(one === two || two === 0) {
+					two = Math.floor(Math.random() * length-1);
+				}
+				var three = Math.floor(Math.random() * length-1);
+				while(one === three || two === three || three === 0) {
+					three = Math.floor(Math.random() * length-1);
+				}
+				//alert(length + "," + one + "," + two + "," + three);
+				var vettedLinks = "";
+
+				//setting the src fot the 3 images
+				document.getElementById("url1").src = parsedString[one];
+				document.getElementById("url2").src = parsedString[two];
+				document.getElementById("url3").src = parsedString[three];
+				//alert(parsedString[1] + "  .......  " + parsedString[2] + "  .......  " + parsedString[3]);
+
+				}
+
+
+			//find readable tag
+			function setReadableTag() {
+				var allTags = ["summer","winter", "fall", "spring", "belowten", "tentothirty", "thirtytofifty", "fiftytoseventy", "seventytoninety", "aboveninety", "casual", "business", "party"];
+				if(tag === allTags[0]) {
+					readableTag = "Summer";
+				} else if (tag === allTags[1]) {
+					readableTag = "Winter";
+				} else if (tag === allTags[2]) {
+					readableTag = "Fall";
+				} else if (tag === allTags[3]) {
+					readableTag = "Spring";
+				} else if (tag === allTags[4]) {
+					readableTag = "below 10\xB0";
+				} else if (tag === allTags[5]) {
+					readableTag = "10\xB0 - 30\xB0";
+				} else if (tag === allTags[6]) {
+					readableTag = "30\xB0 - 50\xB0";
+				} else if (tag === allTags[7]) {
+					readableTag = "50\xB0 - 70\xB0";
+				} else if (tag === allTags[8]) {
+					readableTag = "70\xB0 - 90\xB0";
+				} else if (tag === allTags[9]) {
+					readableTag = "above 90\xB0";
+				} else if (tag === allTags[10]) {
+					readableTag = "Casual";
+				} else if (tag === allTags[11]) {
+					readableTag = "Business";
+				} else if (tag === allTags[12]) {
+					readableTag = "Party";
+				} else {
+					readableTag = "bad tag";
+				}
+
+			}
+
+			// If every image is rated, send the information to the php.
+			function submit() {
+				setResults();
+				if (check) {
+					console.log(resultString);
+					sendMsg(resultString);
+					window.location="shiki-confirmation.html";
+					//window.location="shiki-rate-send.php?q=" + resultString;
+				}
+			}
+
+			// Get the information from the three radio buttons above
+			function setResults() {
+				if(result1 == "" || result2 == "" || result3 == "") {
+					// not all required information was submitted; alert the user
+					alert("Please rate all pictures before you submit")
+					check = false;
+				} else { 
+					// generate the results string
+					resultString = result1 + "," + urls[0] + "," + result2 + "," + urls[1] + "," + result3 + "," + urls[2];
+					check = true;
+				}
+			}
+
+			// Send the user's ratings to shiki-rate-send.php
+			function sendMsg(msg) {
+				console.log(msg);
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+						console.log("readyState = 4, status = 200");
+					}
+				};
+				xmlhttp.open("GET", "https://fling.seas.upenn.edu/~judyweng/cgi-bin/shiki-rate-send.php?q=" + msg, true);
+				xmlhttp.send();			
+			}
+
+			// Save result 1
+			function myFunction1(result) {
+				result1 = result;
+			}
+
+			// Save result 2
+			function myFunction2(result) {
+				result2 = result;
+			}
+
+			// Save result 3
+			function myFunction3(result) {
+				result3 = result;
+			}
+
+			// Return to the home screen 
+			function onLogo() {
+				window.location="shiki-home.html";
+			} 
+
+		</script>
+	</body>
 </html>
