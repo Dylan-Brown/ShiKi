@@ -4,7 +4,6 @@ echo "<strong>This page is the php to connect to the AWS server.<br></strong>";
 // connect to the databse
 function dbConnect() {
 	$db = new mysqli("shiki.cp2brcfro0u7.us-west-2.rds.amazonaws.com", "shiki_master", "mypassword", "shiki");
-	
 	if($db->connect_errno > 0){
 		echo "<strong>Unable to connect to database</strong>";
 	    die('Unable to connect to database [' . $db->connect_error . ']');
@@ -14,47 +13,31 @@ function dbConnect() {
 	return $db;
 }
 
-// our database
-$db = dbConnect();
-
 // find a random tag to rate
-$tags = Array('summer','winter', 'fall', 'spring', 'belowten', 'tentothirty', 'fiftytoseventy', 'seventytoninety', 'aboveninety', 'casual', 'business', 'party');
+$tags = Array('summer','winter', 'fall', 'spring', 'belowten', 'tentothirty', 'thirtytofifty', 'fiftytoseventy', 'seventytoninety', 'aboveninety', 'casual', 'business', 'party');
 $tag = $tags[array_rand($tags, 1)];
-echo 'selected tag is:' . $tag . '<br>';
 
-// form the query
+// query the database
 $sql = <<<SQL
 	SELECT *
     FROM `recommendations`
     WHERE `$tag` = 1
 SQL;
-echo 'sql tag is:' . $sql . '<br>';
-
-// query the database
+$db = dbConnect();
 $result = $db->query($sql);
-$urls = [];
-array_push($urls, $tag);
+
+$urls_s = $tag . ',';
 if(!$result){
-	echo "<strong>There was an error running the query: $db->error<br></strong>";
+	// there was an error or no results
     die('There was an error running the query [' . $db->error . ']');
 } else {
-	// successful; gather the results
-	$urls_s = "";
+	// successful; generate the return string
 	foreach ($result as $item) {
-		$urls_s = $urls_s . $item['url'] + ',';
-		array_push($urls, $item['url']);
-	}
+		$urls_s = $urls_s . $item['url'] . ',';
+	}	
 }
 
-
-// TODO: Pass the results back to the javascript
-
-/*
-// print the results
-foreach ($urls as $url) {
-	echo 'result is: ' . $url . '<br>';
-}
-*/
-
+// echo the results
+echo $urls_s;
 
 ?>
