@@ -39,7 +39,9 @@ if(!$result){
     die('There was an error running the query [' . $db->error . ']');
 } else {
 	// successful; gather the results
+	$urls_s = "";
 	foreach ($result as $item) {
+		$urls_s = $urls_s . $item['url'] + ',';
 		array_push($urls, $item['url']);
 	}
 }
