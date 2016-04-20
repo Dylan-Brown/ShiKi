@@ -56,7 +56,9 @@ height = auto ></h1> </center></p>
 			console.log(mesg);
 			
 			sendMsg(mesg);
-			window.location="shiki-displaySearchresults.html";
+			// window.location="shiki-displaySearchresults.html";
+			location.href = 'https://fling.seas.upenn.edu/~judyweng/cgi-bin/shiki-search.php?q=' + mesg;
+			
 		}
 		
 		function sendMsg(msg) {
@@ -64,7 +66,7 @@ height = auto ></h1> </center></p>
 			var xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange = function() {
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-					console.log("readyState = 4, status = 200");
+					console.log("readyState = 4, status = 200, " + msg);
 				}
 			};
 			xmlhttp.open("GET", "https://fling.seas.upenn.edu/~judyweng/cgi-bin/shiki-search.php?q=" + msg, true);
