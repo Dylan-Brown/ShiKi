@@ -107,32 +107,9 @@ SQL;
 		}
 		
 		// TODO: Pass results to display search result
-		
+		echo $urls_s;
 	}
 	
 }
-
-/*
-
-$result = $db->query($sql);
-if(!$result){
-	echo "<strong>There was an error running the query: $db->error<br></strong>";
-    die('There was an error running the query [' . $db->error . ']');
-}
-
-// print each of the array keys and their values
-function printRow($r) {
-	foreach (array_keys($r) as $k) {
-		echo $k . ': ' . $r[$k] . '<br />';
-	}
-}
-
-// print each row
-while($row = $result->fetch_assoc()){
-	echo '<br>';
-    printRow($row);
-}
-* */
-
 
 ?>
