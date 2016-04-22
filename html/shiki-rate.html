@@ -68,7 +68,7 @@
 
 			<br><br>
 
-			<button id="submit" onclick="submit()">Submit</button>
+			<input type="submit" id="submit" onclick="submit()" value="Submit">
 
 			<br><br>
 		</center>
@@ -107,6 +107,7 @@
 			var result3 = "";
 			var check = false;
 			var readableTag = "";
+			var urls;
 
 
 			window.onload = load();
@@ -115,18 +116,17 @@
 				//RETRIEVE A STRING DATA FROM PHP shiki-rate-get.php
 				//set TAG to be the tag we want
 
-				var xmlhttp = new XMLHttpRequest();
-				xmlhttp.onreadystatechange = function() {
-					if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-						longstring = xmlhttp.responseText;
-
+				var loadRequest = new XMLHttpRequest();
+				loadRequest.onreadystatechange = function() {
+					if (loadRequest.readyState === 4 && loadRequest.status === 200) {
+						longstring = loadRequest.responseText;
 						//alert(longstring);
 						setImages();
 						//parse string			
 					}
 				};
-				xmlhttp.open("GET", "https://fling.seas.upenn.edu/~judyweng/cgi-bin/shiki-rate-get.php", true);
-				xmlhttp.send();
+				loadRequest.open("GET", "https://fling.seas.upenn.edu/~judyweng/cgi-bin/shiki-rate-get.php", true);
+				loadRequest.send();
 				//window.location="shiki-rate-get.php";
 			}
 
@@ -144,17 +144,17 @@
 
 				//check images
 				var length = parsedString.length;
-				var one = Math.floor(Math.random() * length-1);
+				var one = Math.floor(Math.random() * (length-1));
 				while (one === 0) {
-					one = Math.floor(Math.random() * length-1);
+					one = Math.floor(Math.random() * (length-1));
 				}
-				var two = Math.floor(Math.random() * length-1);
+				var two = Math.floor(Math.random() * (length-1));
 				while(one === two || two === 0) {
-					two = Math.floor(Math.random() * length-1);
+					two = Math.floor(Math.random() * (length-1));
 				}
-				var three = Math.floor(Math.random() * length-1);
+				var three = Math.floor(Math.random() * (length-1));
 				while(one === three || two === three || three === 0) {
-					three = Math.floor(Math.random() * length-1);
+					three = Math.floor(Math.random() * (length-1));
 				}
 				//alert(length + "," + one + "," + two + "," + three);
 				var vettedLinks = "";
@@ -163,6 +163,7 @@
 				document.getElementById("url1").src = parsedString[one];
 				document.getElementById("url2").src = parsedString[two];
 				document.getElementById("url3").src = parsedString[three];
+				urls = [parsedString[one], parsedString[two], parsedString[three]];
 				//alert(parsedString[1] + "  .......  " + parsedString[2] + "  .......  " + parsedString[3]);
 
 				}
@@ -205,10 +206,12 @@
 
 			// If every image is rated, send the information to the php.
 			function submit() {
+				//alert("In submit");
 				setResults();
 				if (check) {
 					console.log(resultString);
 					sendMsg(resultString);
+					//alert("After sendMsg");
 					window.location="shiki-confirmation.html";
 					//window.location="shiki-rate-send.php?q=" + resultString;
 				}
@@ -216,24 +219,29 @@
 
 			// Get the information from the three radio buttons above
 			function setResults() {
+				//alert("Set Results");
 				if(result1 == "" || result2 == "" || result3 == "") {
 					// not all required information was submitted; alert the user
-					alert("Please rate all pictures before you submit")
+					alert("Please rate all pictures before you submit");
 					check = false;
 				} else { 
+					//alert("Else case");
 					// generate the results string
 					resultString = result1 + "," + urls[0] + "," + result2 + "," + urls[1] + "," + result3 + "," + urls[2];
 					check = true;
 				}
+				//alert("check is = " + check);
 			}
 
 			// Send the user's ratings to shiki-rate-send.php
 			function sendMsg(msg) {
+				//alert("Send " + msg);
 				console.log(msg);
 				var xmlhttp = new XMLHttpRequest();
 				xmlhttp.onreadystatechange = function() {
 					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 						console.log("readyState = 4, status = 200");
+						//alert("Done sending");
 					}
 				};
 				xmlhttp.open("GET", "https://fling.seas.upenn.edu/~judyweng/cgi-bin/shiki-rate-send.php?q=" + msg, true);
@@ -242,16 +250,19 @@
 
 			// Save result 1
 			function myFunction1(result) {
+				//alert("image 1 result");
 				result1 = result;
 			}
 
 			// Save result 2
 			function myFunction2(result) {
+				//alert("image 2 result");
 				result2 = result;
 			}
 
 			// Save result 3
 			function myFunction3(result) {
+				//alert("image 3 result");
 				result3 = result;
 			}
 
