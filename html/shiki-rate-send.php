@@ -27,17 +27,38 @@ $q = $_REQUEST["q"];
 $array_temp = explode(',',$q);
 $templen=count($array_temp) / 2;  
 $tag = $array_temp[count($array_temp) - 1];
+echo "<strong>iterate.... $tag<br></strong>";
 
 // get the urls and their ratings
 $urls = [];
 $ratings = [];
+$bool = true;
+
 for ($i = 0; $i <= $templen; $i++) {
 	if ($i % 2 == 0) {
 		// rating
-		array_push($ratings, $array_temp[$i]);
+		if ((int) $array_temp[$i] == 11) {
+			$bool = false;
+			
+			// send mesg to database to remove this content
+			$u = $array_temp[$i + 1];
+			 
+			$sql_2 = <<<SQL
+			DELETE FROM `recommendations`
+			WHERE url='$u';
+SQL;
+			$db->query($sql_2);
+			
+		} else {
+			array_push($ratings, $array_temp[$i]);
+		}
 	} else {
 		// url
-		array_push($urls, $array_temp[$i]);
+		if ($bool == true) {
+			array_push($urls, $array_temp[$i]);
+		} else {
+			$bool = true;
+		}		
 	}
 } 
 
@@ -84,6 +105,7 @@ if(!$result){
 			array_push($updatedRate, 'summer_avg=' . $newAvg . ', summer_num=' . $n_n);
 			
 		} else if (strcmp($tag, 'winter') == 0) {
+			echo "<strong>In winter!<br></strong>";
 			$n = (int) $row['winter_num'];
 			$o = floatval($row['winter_avg']);
 			$n_n = $n + 1;
@@ -94,6 +116,7 @@ if(!$result){
 			array_push($updatedRate, 'winter_avg=' . $newAvg . ', winter_num=' . $n_n);
 			
 		} else if (strcmp($tag, 'fall') == 0) {
+			echo "<strong>In fall!<br></strong>";
 			$n = (int) $row['fall_num'];
 			$o = floatval($row['fall_avg']);
 			$n_n = $n + 1;
@@ -104,6 +127,7 @@ if(!$result){
 			array_push($updatedRate, 'fall_avg=' . $newAvg . ', fall_num=' . $n_n);
 			
 		} else if (strcmp($tag, 'spring') == 0) {
+			echo "<strong>In spring!<br></strong>";
 			$n = (int) $row['spring_num'];
 			$o = floatval($row['spring_avg']);
 			$n_n = $n + 1;
