@@ -1,5 +1,5 @@
 <?php
-echo "<strong>This page is the php to connect to the AWS server.<br></strong>";
+//echo "<strong>This page is the php to connect to the AWS server.<br></strong>";
 
 // connect to the databse
 function dbConnect() {
