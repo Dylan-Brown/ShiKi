@@ -97,7 +97,7 @@ if(!$result){
 		$o = 0;
 		
 		$akkjrha =  $tag == 'summer';
-		if ($tag == 'summer') {
+		if ($tag === 'summer') {
 			echo "<strong>In summer!<br></strong>";
 			$n = (int) $row['summer_num'];
 			$o = floatval($row['summer_avg']);
@@ -108,7 +108,7 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'summer_avg=' . $newAvg . ', summer_num=' . $n_n);
 			
-		} else if ($tag == 'winter') {
+		} else if ($tag === 'winter') {
 			echo "<strong>In winter!<br></strong>";
 			$n = (int) $row['winter_num'];
 			$o = floatval($row['winter_avg']);
@@ -119,7 +119,7 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'winter_avg=' . $newAvg . ', winter_num=' . $n_n);
 			
-		} else if ($tag == 'fall') {
+		} else if ($tag === 'fall') {
 			echo "<strong>In fall!<br></strong>";
 			$n = (int) $row['fall_num'];
 			$o = floatval($row['fall_avg']);
@@ -130,7 +130,7 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'fall_avg=' . $newAvg . ', fall_num=' . $n_n);
 			
-		} else if ($tag == 'spring') {
+		} else if ($tag === 'spring') {
 			echo "<strong>In spring!<br></strong>";
 			$n = (int) $row['spring_num'];
 			$o = floatval($row['spring_avg']);
@@ -141,7 +141,8 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'spring_avg=' . $newAvg . ', spring_num=' . $n_n);
 			
-		} else if ($tag == 'belowten') {
+		} else if ($tag === 'belowten') {
+			echo "<strong>In belowten!<br></strong>";
 			$n = (int) $row['belowten_num'];
 			$o = floatval($row['belowten_avg']);
 			$n_n = $n + 1;
@@ -151,7 +152,8 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'belowten_avg=' . $newAvg . ', belowten_num=' . $n_n);
 			
-		} else if ($tag == 0) {
+		} else if ($tag === 'tentothirty') {
+			echo "<strong>In tentothirty!<br></strong>";
 			$n = (int) $row['tentothirty_num'];
 			$o = floatval($row['tentothirty_avg']);
 			$n_n = $n + 1;
@@ -161,7 +163,7 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'tentothirty_avg=' . $newAvg . ', tentothirty_num=' . $n_n);
 			
-		} else if ($tag == 'thirtytofifty') {
+		} else if ($tag === 'thirtytofifty') {
 			$n = (int) $row['thirtytofifty_num'];
 			$o = floatval($row['thirtytofifty_avg']);
 			$n_n = $n + 1;
@@ -171,7 +173,7 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'thirtytofifty_avg=' . $newAvg . ', thirtytofifty_num=' . $n_n);
 			
-		} else if ($tag == 'fiftytoseventy') {
+		} else if ($tag === 'fiftytoseventy') {
 			$n = (int) $row['fiftytoseventy_num'];
 			$o = floatval($row['fiftytoseventy_avg']);
 			$n_n = $n + 1;
@@ -181,7 +183,8 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'fiftytoseventy_avg=' . $newAvg . ', fiftytoseventy_num=' . $n_n);
 			
-		} else if ($tag == 'seventytoninety') {
+		} else if ($tag === 'seventytoninety') {
+			echo "<strong>In seventytoninety<br></strong>";
 			$n = (int) $row['seventytoninety_num'];
 			$o = floatval($row['seventytoninety_avg']);
 			$n_n = $n + 1;
@@ -191,7 +194,7 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'seventytoninety_avg=' . $newAvg . ', seventytoninety_num=' . $n_n);
 			
-		} else if ($tag == 'aboveninety') {
+		} else if ($tag === 'aboveninety') {
 			$n = (int) $row['aboveninety_num'];
 			$o = floatval($row['aboveninety_avg']);
 			$n_n = $n + 1;
@@ -201,7 +204,7 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'aboveninety_avg=' . $newAvg . ', aboveninety_num=' . $n_n);
 			
-		} else if ($tag == 'casual') {
+		} else if ($tag === 'casual') {
 			$n = (int) $row['casual_num'];
 			$o = floatval($row['casual_avg']);
 			$n_n = $n + 1;
@@ -211,7 +214,7 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'casual_avg=' . $newAvg . ', casual_num=' . $n_n);
 			
-		} else if ($tag == 'business') {
+		} else if ($tag === 'business') {
 			$n = (int) $row['business_num'];
 			$o = floatval($row['business_avg']);
 			$n_n = $n + 1;
@@ -221,7 +224,7 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'business_avg=' . $newAvg . ', business_num=' . $n_n);
 			
-		} else if ($tag == 'party') {
+		} else if ($tag === 'party') {
 			$n = (int) $row['party_num'];
 			$o = floatval($row['party_avg']);
 			$n_n = $n + 1;
