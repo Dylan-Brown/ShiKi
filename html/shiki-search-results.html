@@ -59,7 +59,15 @@
 			//alert(param);
 			urlArray = param.split(",");
 			size = urlArray.length - 1;
-			document.getElementById("resultSize").innerHTML = "Found " + size + " images.";
+
+			var sizeString = "Found " + size;
+			if(size === 1) {
+				sizeString += " image.";
+			} else {
+				sizeString += " images.";
+			}
+
+			document.getElementById("resultSize").innerHTML = sizeString;
 			findTags();
 			//alert("last url is = " + urlArray[size]);
 		}
