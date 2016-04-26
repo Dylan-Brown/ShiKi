@@ -113,9 +113,9 @@ if(!$result){
 			$n = (int) $row['winter_num'];
 			$o = floatval($row['winter_avg']);
 			$n_n = $n + 1;
-			$key = array_search($row['url'], $ratings);
+			$key = array_search($row['url'], $urls);
 			$r = $ratings[$key];
-			$newAvg = calcNewRating($o, $n, $r);
+			$newAvg = calcNewRating($o, $n, $r);	
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'winter_avg=' . $newAvg . ', winter_num=' . $n_n);
 			
@@ -124,9 +124,9 @@ if(!$result){
 			$n = (int) $row['fall_num'];
 			$o = floatval($row['fall_avg']);
 			$n_n = $n + 1;
-			$key = array_search($row['url'], $ratings);
+			$key = array_search($row['url'], $urls);
 			$r = $ratings[$key];
-			$newAvg = calcNewRating($o, $n, $r);
+			$newAvg = calcNewRating($o, $n, $r);	
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'fall_avg=' . $newAvg . ', fall_num=' . $n_n);
 			
@@ -135,9 +135,9 @@ if(!$result){
 			$n = (int) $row['spring_num'];
 			$o = floatval($row['spring_avg']);
 			$n_n = $n + 1;
-			$key = array_search($row['url'], $ratings);
+			$key = array_search($row['url'], $urls);
 			$r = $ratings[$key];
-			$newAvg = calcNewRating($o, $n, $r);
+			$newAvg = calcNewRating($o, $n, $r);	
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'spring_avg=' . $newAvg . ', spring_num=' . $n_n);
 			
@@ -145,9 +145,9 @@ if(!$result){
 			$n = (int) $row['belowten_num'];
 			$o = floatval($row['belowten_avg']);
 			$n_n = $n + 1;
-			$key = array_search($row['url'], $ratings);
+			$key = array_search($row['url'], $urls);
 			$r = $ratings[$key];
-			$newAvg = calcNewRating($o, $n, $r);
+			$newAvg = calcNewRating($o, $n, $r);	
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'belowten_avg=' . $newAvg . ', belowten_num=' . $n_n);
 			
@@ -155,9 +155,9 @@ if(!$result){
 			$n = (int) $row['tentothirty_num'];
 			$o = floatval($row['tentothirty_avg']);
 			$n_n = $n + 1;
-			$key = array_search($row['url'], $ratings);
+			$key = array_search($row['url'], $urls);
 			$r = $ratings[$key];
-			$newAvg = calcNewRating($o, $n, $r);
+			$newAvg = calcNewRating($o, $n, $r);	
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'tentothirty_avg=' . $newAvg . ', tentothirty_num=' . $n_n);
 			
@@ -165,9 +165,9 @@ if(!$result){
 			$n = (int) $row['thirtytofifty_num'];
 			$o = floatval($row['thirtytofifty_avg']);
 			$n_n = $n + 1;
-			$key = array_search($row['url'], $ratings);
+			$key = array_search($row['url'], $urls);
 			$r = $ratings[$key];
-			$newAvg = calcNewRating($o, $n, $r);
+			$newAvg = calcNewRating($o, $n, $r);	
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'thirtytofifty_avg=' . $newAvg . ', thirtytofifty_num=' . $n_n);
 			
@@ -175,9 +175,9 @@ if(!$result){
 			$n = (int) $row['fiftytoseventy_num'];
 			$o = floatval($row['fiftytoseventy_avg']);
 			$n_n = $n + 1;
-			$key = array_search($row['url'], $ratings);
+			$key = array_search($row['url'], $urls);
 			$r = $ratings[$key];
-			$newAvg = calcNewRating($o, $n, $r);
+			$newAvg = calcNewRating($o, $n, $r);	
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'fiftytoseventy_avg=' . $newAvg . ', fiftytoseventy_num=' . $n_n);
 			
@@ -185,9 +185,9 @@ if(!$result){
 			$n = (int) $row['seventytoninety_num'];
 			$o = floatval($row['seventytoninety_avg']);
 			$n_n = $n + 1;
-			$key = array_search($row['url'], $ratings);
+			$key = array_search($row['url'], $urls);
 			$r = $ratings[$key];
-			$newAvg = calcNewRating($o, $n, $r);
+			$newAvg = calcNewRating($o, $n, $r);	
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'seventytoninety_avg=' . $newAvg . ', seventytoninety_num=' . $n_n);
 			
@@ -195,9 +195,9 @@ if(!$result){
 			$n = (int) $row['aboveninety_num'];
 			$o = floatval($row['aboveninety_avg']);
 			$n_n = $n + 1;
-			$key = array_search($row['url'], $ratings);
+			$key = array_search($row['url'], $urls);
 			$r = $ratings[$key];
-			$newAvg = calcNewRating($o, $n, $r);
+			$newAvg = calcNewRating($o, $n, $r);	
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'aboveninety_avg=' . $newAvg . ', aboveninety_num=' . $n_n);
 			
@@ -205,9 +205,9 @@ if(!$result){
 			$n = (int) $row['casual_num'];
 			$o = floatval($row['casual_avg']);
 			$n_n = $n + 1;
-			$key = array_search($row['url'], $ratings);
+			$key = array_search($row['url'], $urls);
 			$r = $ratings[$key];
-			$newAvg = calcNewRating($o, $n, $r);
+			$newAvg = calcNewRating($o, $n, $r);	
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'casual_avg=' . $newAvg . ', casual_num=' . $n_n);
 			
@@ -215,9 +215,9 @@ if(!$result){
 			$n = (int) $row['business_num'];
 			$o = floatval($row['business_avg']);
 			$n_n = $n + 1;
-			$key = array_search($row['url'], $ratings);
+			$key = array_search($row['url'], $urls);
 			$r = $ratings[$key];
-			$newAvg = calcNewRating($o, $n, $r);
+			$newAvg = calcNewRating($o, $n, $r);	
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'business_avg=' . $newAvg . ', business_num=' . $n_n);
 			
@@ -225,9 +225,9 @@ if(!$result){
 			$n = (int) $row['party_num'];
 			$o = floatval($row['party_avg']);
 			$n_n = $n + 1;
-			$key = array_search($row['url'], $ratings);
+			$key = array_search($row['url'], $urls);
 			$r = $ratings[$key];
-			$newAvg = calcNewRating($o, $n, $r);
+			$newAvg = calcNewRating($o, $n, $r);	
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'party_avg=' . $newAvg . ', party_num=' . $n_n);
 			
