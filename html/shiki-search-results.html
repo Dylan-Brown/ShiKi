@@ -46,11 +46,7 @@
 
 		//get images before showing page
 		window.onload = load();
-		if(size === 0) {
-			alert("empty");
-		} else {
-			setImages();
-		}	
+		setImages();
 
 		//loading images
 		function load() {
@@ -61,7 +57,10 @@
 			size = urlArray.length - 1;
 
 			var sizeString = "Found " + size;
-			if(size === 1) {
+			if(size === 0) {
+				sizeString = "No results found. Please try searching with different tags.";
+			}
+			else if(size === 1) {
 				sizeString += " image.";
 			} else {
 				sizeString += " images.";
