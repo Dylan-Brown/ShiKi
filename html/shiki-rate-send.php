@@ -1,5 +1,5 @@
 <?php
-echo "<strong>Page: Send in a recommendation to the database.<br></strong>";
+// echo "<strong>Page: Send in a recommendation to the database.<br></strong>";
 
 // connect to the databse
 function dbConnect() {
@@ -25,9 +25,9 @@ $q = $_REQUEST["q"];
 
 // divide the variables by comma  "url,rating,url,rating..." and get the tag
 $array_temp = explode(',',$q);
-$templen=count($array_temp) / 2;  
+$templen=count($array_temp) - 2;  
 $tag = $array_temp[count($array_temp) - 1];
-echo "<strong>iterate.... $tag<br></strong>";
+// echo "<strong>the tag is $tag<br></strong>";
 
 // get the urls and their ratings
 $urls = [];
@@ -47,15 +47,19 @@ for ($i = 0; $i <= $templen; $i++) {
 			DELETE FROM `recommendations`
 			WHERE url='$u';
 SQL;
+
+			// echo 'sql is ' . $sql . '<div>';
 			$db->query($sql_2);
 			
 		} else {
+			// echo "<strong>rating.... $array_temp[$i]<br></strong>";
 			array_push($ratings, $array_temp[$i]);
 		}
 	} else {
 		// url
 		if ($bool == true) {
 			array_push($urls, $array_temp[$i]);
+			// echo "<strong>url.... $array_temp[$i]<br></strong>";
 		} else {
 			$bool = true;
 		}		
@@ -64,8 +68,8 @@ SQL;
 
 // print the ratings for each url
 $where = '';
-for ($i = 0; $i <= count($urls) - 2; $i++) {
-	$where = $where . "url='$urls[$i]', ";
+for ($i = 0; $i <= count($urls) - 1; $i++) {
+	$where = $where . "url='$urls[$i]' OR ";
 } 
 $d = count($urls) - 1;
 $where = $where . "url='$urls[$d]'";
@@ -77,8 +81,6 @@ $sql_1 = <<<SQL
     WHERE $where
 SQL;
 
-echo $sql_1 . '<div>';
-
 $updatedUrls = [];
 $updatedRate = [];
 
@@ -86,25 +88,27 @@ $updatedRate = [];
 $result = $db->query($sql_1);
 if(!$result){
 	die('There was an error running the query [' . $db->error . ']');
-} else {
-		
+} else {		
+	
 	// calculate the new averages
 	foreach ($result as $row) {
 		echo "<strong>iterate.... $tag<br></strong>";
 		$n = 0;
 		$o = 0;
-		if (strcmp($tag, 'summer') == 0) {
+		
+		$akkjrha =  $tag == 'summer';
+		if ($tag == 'summer') {
 			echo "<strong>In summer!<br></strong>";
 			$n = (int) $row['summer_num'];
 			$o = floatval($row['summer_avg']);
 			$n_n = $n + 1;
-			$key = array_search($row['url'], $ratings);
+			$key = array_search($row['url'], $urls);
 			$r = $ratings[$key];
-			$newAvg = calcNewRating($o, $n, $r);
+			$newAvg = calcNewRating($o, $n, $r);			
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'summer_avg=' . $newAvg . ', summer_num=' . $n_n);
 			
-		} else if (strcmp($tag, 'winter') == 0) {
+		} else if ($tag == 'winter') {
 			echo "<strong>In winter!<br></strong>";
 			$n = (int) $row['winter_num'];
 			$o = floatval($row['winter_avg']);
@@ -115,7 +119,7 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'winter_avg=' . $newAvg . ', winter_num=' . $n_n);
 			
-		} else if (strcmp($tag, 'fall') == 0) {
+		} else if ($tag == 'fall') {
 			echo "<strong>In fall!<br></strong>";
 			$n = (int) $row['fall_num'];
 			$o = floatval($row['fall_avg']);
@@ -126,7 +130,7 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'fall_avg=' . $newAvg . ', fall_num=' . $n_n);
 			
-		} else if (strcmp($tag, 'spring') == 0) {
+		} else if ($tag == 'spring') {
 			echo "<strong>In spring!<br></strong>";
 			$n = (int) $row['spring_num'];
 			$o = floatval($row['spring_avg']);
@@ -147,7 +151,7 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'belowten_avg=' . $newAvg . ', belowten_num=' . $n_n);
 			
-		} else if (strcmp($tag, 'tentothirty') == 0) {
+		} else if ($tag == 0) {
 			$n = (int) $row['tentothirty_num'];
 			$o = floatval($row['tentothirty_avg']);
 			$n_n = $n + 1;
@@ -157,7 +161,7 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'tentothirty_avg=' . $newAvg . ', tentothirty_num=' . $n_n);
 			
-		} else if (strcmp($tag, 'thirtytofifty') == 0) {
+		} else if ($tag == 'thirtytofifty') {
 			$n = (int) $row['thirtytofifty_num'];
 			$o = floatval($row['thirtytofifty_avg']);
 			$n_n = $n + 1;
@@ -167,7 +171,7 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'thirtytofifty_avg=' . $newAvg . ', thirtytofifty_num=' . $n_n);
 			
-		} else if (strcmp($tag, 'fiftytoseventy') == 0) {
+		} else if ($tag == 'fiftytoseventy') {
 			$n = (int) $row['fiftytoseventy_num'];
 			$o = floatval($row['fiftytoseventy_avg']);
 			$n_n = $n + 1;
@@ -177,7 +181,7 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'fiftytoseventy_avg=' . $newAvg . ', fiftytoseventy_num=' . $n_n);
 			
-		} else if (strcmp($tag, 'seventytoninety') == 0) {
+		} else if ($tag == 'seventytoninety') {
 			$n = (int) $row['seventytoninety_num'];
 			$o = floatval($row['seventytoninety_avg']);
 			$n_n = $n + 1;
@@ -187,7 +191,7 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'seventytoninety_avg=' . $newAvg . ', seventytoninety_num=' . $n_n);
 			
-		} else if (strcmp($tag, 'aboveninety') == 0) {
+		} else if ($tag == 'aboveninety') {
 			$n = (int) $row['aboveninety_num'];
 			$o = floatval($row['aboveninety_avg']);
 			$n_n = $n + 1;
@@ -197,7 +201,7 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'aboveninety_avg=' . $newAvg . ', aboveninety_num=' . $n_n);
 			
-		} else if (strcmp($tag, 'casual') == 0) {
+		} else if ($tag == 'casual') {
 			$n = (int) $row['casual_num'];
 			$o = floatval($row['casual_avg']);
 			$n_n = $n + 1;
@@ -207,7 +211,7 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'casual_avg=' . $newAvg . ', casual_num=' . $n_n);
 			
-		} else if (strcmp($tag, 'business') == 0) {
+		} else if ($tag == 'business') {
 			$n = (int) $row['business_num'];
 			$o = floatval($row['business_avg']);
 			$n_n = $n + 1;
@@ -217,7 +221,7 @@ if(!$result){
 			array_push($updatedUrls, $row['url']);
 			array_push($updatedRate, 'business_avg=' . $newAvg . ', business_num=' . $n_n);
 			
-		} else if (strcmp($tag, 'party') == 0) {
+		} else if ($tag == 'party') {
 			$n = (int) $row['party_num'];
 			$o = floatval($row['party_avg']);
 			$n_n = $n + 1;
@@ -229,6 +233,7 @@ if(!$result){
 			
 		}
 		
+		
 		// update the values in the databases
 		for ($i = 0; $i < count($updatedUrls); $i++) {
 			$sql = <<<SQL
@@ -236,7 +241,7 @@ if(!$result){
 				SET $updatedRate[$i]
 				WHERE url='$updatedUrls[$i]';
 SQL;
-			echo 'sql is ' . $sql . '<div>';
+
 			$result = $db->query($sql);
 			if (!$result) {  
 				die('There was an error running the query [' . $db->error . ']');
