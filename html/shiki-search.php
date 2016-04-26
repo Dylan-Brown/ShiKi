@@ -1,5 +1,5 @@
 <?php
-echo "<strong>PHP: Search the database.<br></strong>";
+//echo "<strong>PHP: Search the database.<br></strong>";
 
 // connect to the databse
 function dbConnect() {

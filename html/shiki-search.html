@@ -1,6 +1,5 @@
 <html>
-<p><center><h1>SHIKI<img src="images/logo.png" align="right" width = 200 
-height = auto ></h1> </center></p>
+<p><h1>SHIKI <img src="images/logo.png" align="right" width="200" height="auto" onclick="onLogo();" id="logo"> </h1> </p>
 
 <h2><center>Search Page
 <br><br>Please choose your weather tags
@@ -14,12 +13,12 @@ height = auto ></h1> </center></p>
 	<input type="checkbox" id="tag02" name="weather tags" value="Winter">Winter <br> 
 	<input type="checkbox" id="tag03" name="weather tags" value="Fall">Fall <br> 
 	<input type="checkbox" id="tag04" name="weather tags" value="Spring">Spring <br>
-	<input type="checkbox" id="tag05" name="weather tags" value="below 10º">below 10º <br>
-	<input type="checkbox" id="tag06" name="weather tags" value="10º - 30º">10º - 30º <br>
-	<input type="checkbox" id="tag07" name="weather tags" value="30º - 50º">30º- 50º <br>
-	<input type="checkbox" id="tag08" name="weather tags" value="50º - 70º">50º - 70º <br>
-	<input type="checkbox" id="tag09" name="weather tags" value="70º - 90º">70º - 90º <br>
-	<input type="checkbox" id="tag10" name="weather tags" value="above 90º">above 90º <br> 
+	<input type="checkbox" id="tag05" name="weather tags" value="below 10º">below 10&#176; <br>
+	<input type="checkbox" id="tag06" name="weather tags" value="10º - 30º">10&#176; - 30&#176; <br>
+	<input type="checkbox" id="tag07" name="weather tags" value="30º - 50º">30&#176;- 50&#176; <br>
+	<input type="checkbox" id="tag08" name="weather tags" value="50º - 70º">50&#176; - 70&#176; <br>
+	<input type="checkbox" id="tag09" name="weather tags" value="70º - 90º">70&#176; - 90&#176; <br>
+	<input type="checkbox" id="tag10" name="weather tags" value="above 90º">above 90&#176; <br> 
 	<input type="checkbox" id="tag11" name="weather tags" value="Casual">Casual <br>
 	<input type="checkbox" id="tag12" name="weather tags" value="Business">Business <br>
 	<input type="checkbox" id="tag13" name="weather tags" value="Party">Party 
@@ -41,7 +40,15 @@ height = auto ></h1> </center></p>
 		var casual = 0;
 		var business = 0;
 		var party = 0;
+		
 
+		window.onload = load();
+		
+
+		function load() {
+			//alert("ha");
+			//alert("change");
+		}
 		function submit() {
 			console.log("submit button clicked");
 			if (valid() == 0) {
@@ -56,9 +63,55 @@ height = auto ></h1> </center></p>
 			console.log(mesg);
 			
 			sendMsg(mesg);
-			// window.location="shiki-displaySearchresults.html";
-			location.href = 'https://fling.seas.upenn.edu/~judyweng/cgi-bin/shiki-search.php?q=' + mesg;
+			//location.href = 'https://fling.seas.upenn.edu/~judyweng/cgi-bin/shiki-search.php?q=' + mesg;
 			
+		}
+
+		//find the tags that are checked
+		function checkedTag() {
+			var checked = "";
+
+			if(summer > 0) {
+				checked += "summer,";
+			}
+			if(winter > 0) {
+				checked += "winter,";
+			}
+			if(fall > 0) {
+				checked += "fall,";
+			}
+			if(spring > 0) {
+				checked += "spring,";
+			}
+			if(belowten > 0) {
+				checked += "belowten,";
+			}
+			if(tentothirty > 0) {
+				checked += "tentothirty,";
+			}
+			if(thirtytofifty > 0) {
+				checked += "thirtytofifty,";
+			}
+			if(fiftytoseventy > 0) {
+				checked += "fiftytoseventy,";
+			}
+			if(seventytoninety > 0) {
+				checked += "seventytoninety,";
+			}
+			if(aboveninety > 0) {
+				checked += "aboveninety,";
+			}
+			if(casual > 0) {
+				checked += "casual,";
+			}
+			if(business > 0) {
+				checked += "business,";
+			}
+			if(party > 0) {
+				checked += "party,";
+			}
+			//alert("checked\n\n"+checked);
+			return checked;
 		}
 		
 		function sendMsg(msg) {
@@ -67,8 +120,11 @@ height = auto ></h1> </center></p>
 			xmlhttp.onreadystatechange = function() {
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 					console.log("readyState = 4, status = 200, " + msg);
+					///alert("sanity check");
+					window.location="shiki-search-results.html?tags=" + checkedTag()+ "&q=" + xmlhttp.responseText;
 				}
 			};
+
 			xmlhttp.open("GET", "https://fling.seas.upenn.edu/~judyweng/cgi-bin/shiki-search.php?q=" + msg, true);
 			xmlhttp.send();
 		}
@@ -81,6 +137,9 @@ height = auto ></h1> </center></p>
 			else
 				return 1;
 		}
+		function onLogo() {
+			window.location="shiki-home.html";
+		} 
 
 		// add listeners for each button
 		document.getElementById("tag01").addEventListener("click", function() {
@@ -125,6 +184,3 @@ height = auto ></h1> </center></p>
 	</script>
 
 </body>
-</html>
-
-

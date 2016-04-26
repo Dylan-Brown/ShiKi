@@ -1,1 +1,179 @@
+<!DOCTYPE html>
+<HTML>
+	<HEAD>
+		<TITLE>ShiKi</TITLE>
+		<p><h1>SHIKI <img src="images/logo.png" align="right" width="200" height="auto" onclick="onLogo();" id="logo"> </h1> </p>
 
+		<h2 id = "searchTags"></h2>
+		<h2 id = "resultSize"></h2>
+		
+	</HEAD>
+
+	<BODY>
+		<input type="submit" id="searchAgain" onclick="searchAgain()" value="searchAgain">
+		
+		<div class="divider"/></div>
+		<div>
+			<div class="column" id="col1" style="float: left; width: 33%;"></div>
+			<div class="column" id="col2" style="float: left; width: 33%;"></div>
+			<div class="column" id="col3" style="float: left; width: 33%;"></div>
+		</div>
+
+
+		<style>
+			.divider{
+				width:5px;
+				height:auto;
+				display:inline-block;
+			}
+
+			/*
+			.column{
+				margin: 5px;
+			}
+			*/
+			
+		</style>
+
+
+
+	<SCRIPT LANGUAGE="JavaScript">
+
+		var urlArray;
+		var param;
+		var size;
+		var tagsArray;
+
+		//get images before showing page
+		window.onload = load();
+		if(size === 0) {
+			alert("empty");
+		} else {
+			setImages();
+		}	
+
+		//loading images
+		function load() {
+			//alert("here");
+			param = getParameterByName('q'); 
+			//alert(param);
+			urlArray = param.split(",");
+			size = urlArray.length - 1;
+			document.getElementById("resultSize").innerHTML = "Found " + size + " images.";
+			findTags();
+			//alert("last url is = " + urlArray[size]);
+		}
+
+		//find what tags we inputed
+		function findTags() {
+			//alert("findtaags");
+			var tagIndex, tagSize;
+			var allTagsGet = getParameterByName('tags'); 
+			//alert("allTagsGets\n" + allTagsGet);
+
+			tagsArray = allTagsGet.split(",");
+			//alert("made array");
+			tagSize = tagsArray.length;
+			//alert("taglength\n" + tagSize);
+
+			var allTags = "";
+			for (tagIndex = 0; tagIndex < tagSize - 1; tagIndex++) {
+				allTags += findReadableTag(tagsArray[tagIndex]);
+				if(tagIndex !== (tagSize - 2)) {
+					allTags += ", ";
+				}
+			}
+			//alert("setting searchTags");
+			document.getElementById("searchTags").innerHTML = "Results for the tags: " + allTags + ".";
+
+		}
+
+
+		function findReadableTag(tag) {
+				var readableTag = "";
+				var allTags = ["summer","winter", "fall", "spring", "belowten", "tentothirty", "thirtytofifty", "fiftytoseventy", "seventytoninety", "aboveninety", "casual", "business", "party"];
+				if(tag === allTags[0]) {
+					readableTag = "Summer";
+				} else if (tag === allTags[1]) {
+					readableTag = "Winter";
+				} else if (tag === allTags[2]) {
+					readableTag = "Fall";
+				} else if (tag === allTags[3]) {
+					readableTag = "Spring";
+				} else if (tag === allTags[4]) {
+					readableTag = "below 10\xB0";
+				} else if (tag === allTags[5]) {
+					readableTag = "10\xB0 - 30\xB0";
+				} else if (tag === allTags[6]) {
+					readableTag = "30\xB0 - 50\xB0";
+				} else if (tag === allTags[7]) {
+					readableTag = "50\xB0 - 70\xB0";
+				} else if (tag === allTags[8]) {
+					readableTag = "70\xB0 - 90\xB0";
+				} else if (tag === allTags[9]) {
+					readableTag = "above 90\xB0";
+				} else if (tag === allTags[10]) {
+					readableTag = "Casual";
+				} else if (tag === allTags[11]) {
+					readableTag = "Business";
+				} else if (tag === allTags[12]) {
+					readableTag = "Party";
+				} else {
+				}
+				return readableTag;
+
+			}
+
+		//http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+		function getParameterByName(name, url) {
+			if (!url) url = window.location.href;
+			name = name.replace(/[\[\]]/g, "\\$&");
+			var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+			results = regex.exec(url);
+			if (!results) return null;
+			if (!results[2]) return '';
+			return decodeURIComponent(results[2].replace(/\+/g, " "));
+		}
+
+		//to go search again
+		function searchAgain() {
+			window.location="shiki-search.html";
+		}
+
+		//set images into the divs
+		function setImages() {
+			var index;
+			//alert("setting image");
+			var col1 = document.getElementById("col1");
+			var col2 = document.getElementById("col2");
+			var col3 = document.getElementById("col3");
+
+			//set one picture per column and alternate
+			for (index = 0; index < size; index++) {
+				var thisCol;
+				var mod = index%3;
+				//alert("mod = " + mod);
+				if(mod === 0) {
+					//alert("col1");
+					thisCol = col1;
+				} else if (mod === 1) {
+					//alert("col2");
+					thisCol = col2;
+				} else {
+					//alert("col3");
+					thisCol = col3;
+				}
+
+				var elem = document.createElement("img");
+				elem.style.width = '100%';
+				elem.setAttribute("src", urlArray[index]);
+				thisCol.appendChild(elem);
+			}
+		}
+
+		function onLogo() {
+				window.location="shiki-home.html";
+			} 
+	</SCRIPT> 
+	</BODY>
+</HTML>
