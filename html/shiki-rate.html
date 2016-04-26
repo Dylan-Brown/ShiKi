@@ -134,6 +134,7 @@
 			function setImages() {
 				var parsedString = longstring.split(",");
 				tag = parsedString[0];
+				//alert(tag);
 				setReadableTag();
 
 				//set the top of the page to reflect that specific tag
@@ -203,6 +204,7 @@
 				} else {
 					readableTag = "bad tag";
 				}
+				///alert(tag);
 
 			}
 
@@ -229,7 +231,7 @@
 				} else { 
 					//alert("Else case");
 					// generate the results string
-					resultString = result1 + "," + urls[0] + "," + result2 + "," + urls[1] + "," + result3 + "," + urls[2] + ", " + tag;
+					resultString = result1 + "," + urls[0] + "," + result2 + "," + urls[1] + "," + result3 + "," + urls[2] + "," + tag;
 					check = true;
 				}
 				//alert("check is = " + check);
@@ -238,7 +240,7 @@
 			// Send the user's ratings to shiki-rate-send.php
 			function sendMsg(msg) {
 				//alert("Send " + msg);
-				console.log(msg);
+				//alert(msg);
 				var xmlhttp = new XMLHttpRequest();
 				xmlhttp.onreadystatechange = function() {
 					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
