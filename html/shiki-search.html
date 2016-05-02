@@ -50,6 +50,7 @@
 			//alert("change");
 		}
 		function submit() {
+			
 			console.log("submit button clicked");
 			if (valid() == 0) {
 				alert("Error: Please select at least one tag");
@@ -61,7 +62,7 @@
 					+ tentothirty + thirtytofifty + fiftytoseventy
 					+ seventytoninety + aboveninety + casual + business + party;
 			console.log(mesg);
-			
+			//alert("sending " + mesg);
 			sendMsg(mesg);
 			//location.href = 'https://fling.seas.upenn.edu/~judyweng/cgi-bin/shiki-search.php?q=' + mesg;
 			
@@ -70,7 +71,7 @@
 		//find the tags that are checked
 		function checkedTag() {
 			var checked = "";
-
+			//alert("tags");
 			if(summer > 0) {
 				checked += "summer,";
 			}
@@ -113,20 +114,10 @@
 			//alert("checked\n\n"+checked);
 			return checked;
 		}
-		
-		function sendMsg(msg) {
-			console.log(msg);
-			var xmlhttp = new XMLHttpRequest();
-			xmlhttp.onreadystatechange = function() {
-				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-					console.log("readyState = 4, status = 200, " + msg);
-					///alert("sanity check");
-					window.location="shiki-search-results.html?tags=" + checkedTag()+ "&q=" + xmlhttp.responseText;
-				}
-			};
 
-			xmlhttp.open("GET", "https://fling.seas.upenn.edu/~judyweng/cgi-bin/shiki-search.php?q=" + msg, true);
-			xmlhttp.send();
+		function sendMsg(msg) {
+			//alert("going to " + "shiki-search-results.html?tags=" + checkedTag()+ "&q=" + msg);
+			window.location = "shiki-search-results.html?tags=" + checkedTag()+ "&q=" + msg;
 		}
 		
 

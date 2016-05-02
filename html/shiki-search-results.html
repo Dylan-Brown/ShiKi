@@ -14,9 +14,11 @@
 		
 		<div class="divider"/></div>
 		<div>
-			<div class="column" id="col1" style="float: left; width: 33%;"></div>
-			<div class="column" id="col2" style="float: left; width: 33%;"></div>
-			<div class="column" id="col3" style="float: left; width: 33%;"></div>
+			<div class="column" id="col1" style="float: left; width: 20%;"></div>
+			<div class="column" id="col2" style="float: left; width: 20%;"></div>
+			<div class="column" id="col3" style="float: left; width: 20%;"></div>
+			<div class="column" id="col4" style="float: left; width: 20%;"></div>
+			<div class="column" id="col5" style="float: left; width: 20%;"></div>
 		</div>
 
 
@@ -27,6 +29,10 @@
 				display:inline-block;
 			}
 
+			.image { 
+				height: 50vh; 
+				overflow-y: scroll;
+			}
 			/*
 			.column{
 				margin: 5px;
@@ -40,9 +46,11 @@
 	<SCRIPT LANGUAGE="JavaScript">
 
 		var urlArray;
-		var param;
+		var param; //10001000 rep of which tags were chosen
 		var size;
 		var tagsArray;
+		var givenTags;
+		var images;
 
 		//get images before showing page
 		window.onload = load();
@@ -50,10 +58,14 @@
 
 		//loading images
 		function load() {
+			//alert("in load");
+
+			retrieveParams();
+			retrieveFromDatabase(param);
 			//alert("here");
-			param = getParameterByName('q'); 
+			
 			//alert(param);
-			urlArray = param.split(",");
+			urlArray = images.split(",");
 			size = urlArray.length - 1;
 
 			var sizeString = "Found " + size;
@@ -71,14 +83,35 @@
 			//alert("last url is = " + urlArray[size]);
 		}
 
+
+		function retrieveParams() {
+			givenTags = getParameterByName('tags');
+			param = getParameterByName('q'); 
+			alert("given tags:\n" + givenTags + "\nparam: \n" + param);
+		}
+
+
+		function retrieveFromDatabase(param) {
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					images = xmlhttp.responseText;
+					//alert("done getting\n" + images)
+				}
+			};
+
+			xmlhttp.open("GET", "https://fling.seas.upenn.edu/~judyweng/cgi-bin/shiki-search.php?q=" + param, false);
+			xmlhttp.send();
+		}
+
+
 		//find what tags we inputed
 		function findTags() {
 			//alert("findtaags");
 			var tagIndex, tagSize;
-			var allTagsGet = getParameterByName('tags'); 
 			//alert("allTagsGets\n" + allTagsGet);
 
-			tagsArray = allTagsGet.split(",");
+			tagsArray = givenTags.split(",");
 			//alert("made array");
 			tagSize = tagsArray.length;
 			//alert("taglength\n" + tagSize);
@@ -154,11 +187,12 @@
 			var col1 = document.getElementById("col1");
 			var col2 = document.getElementById("col2");
 			var col3 = document.getElementById("col3");
-
+			//alert("see changes");
+			alert("see changes2");
 			//set one picture per column and alternate
 			for (index = 0; index < size; index++) {
 				var thisCol;
-				var mod = index%3;
+				var mod = index%5;
 				//alert("mod = " + mod);
 				if(mod === 0) {
 					//alert("col1");
@@ -166,15 +200,25 @@
 				} else if (mod === 1) {
 					//alert("col2");
 					thisCol = col2;
-				} else {
-					//alert("col3");
+				} else if (mod === 2) {
+					//alert("col2");
 					thisCol = col3;
+				} else if (mod === 3) {
+					//alert("col2");
+					thisCol = col4;
+				} 
+				else {
+					//alert("col3");
+					thisCol = col5;
 				}
-
+				
+				var newDiv = document.createElement("div");
+				newDiv.className = "image";
 				var elem = document.createElement("img");
 				elem.style.width = '100%';
 				elem.setAttribute("src", urlArray[index]);
-				thisCol.appendChild(elem);
+				newDiv.appendChild(elem);
+				thisCol.appendChild(newDiv);
 			}
 		}
 
