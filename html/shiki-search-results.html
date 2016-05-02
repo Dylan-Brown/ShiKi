@@ -31,13 +31,9 @@
 
 			.image { 
 				height: 50vh; 
-				overflow-y: scroll;
-			}
-			/*
-			.column{
+				overflow-y: auto;
 				margin: 5px;
 			}
-			*/
 			
 		</style>
 
@@ -87,7 +83,7 @@
 		function retrieveParams() {
 			givenTags = getParameterByName('tags');
 			param = getParameterByName('q'); 
-			alert("given tags:\n" + givenTags + "\nparam: \n" + param);
+			//alert("given tags:\n" + givenTags + "\nparam: \n" + param);
 		}
 
 
@@ -188,7 +184,7 @@
 			var col2 = document.getElementById("col2");
 			var col3 = document.getElementById("col3");
 			//alert("see changes");
-			alert("see changes2");
+			//alert("see changes2");
 			//set one picture per column and alternate
 			for (index = 0; index < size; index++) {
 				var thisCol;

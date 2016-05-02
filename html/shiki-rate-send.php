@@ -44,10 +44,8 @@ for ($i = 0; $i <= $templen; $i++) {
 			$u = $array_temp[$i + 1];
 			 
 			$sql_2 = <<<SQL
-			SET SQL_SAFE_UPDATES = 0;
-			DELETE FROM `recommendations`
-			WHERE url='$u';
-			SET SQL_SAFE_UPDATES = 1;
+			INSERT INTO flag
+			VALUES ('$u');
 SQL;
 
 			// echo 'sql is ' . $sql . '<div>';
