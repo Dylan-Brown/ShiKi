@@ -10,36 +10,6 @@ function dbConnect() {
 	return $db;
 }
 
-// sort an array by a specific single key
-function aasort (&$array, $key) {
-    $sorter=array();
-    $ret=array();
-    reset($array);
-    foreach ($array as $ii => $va) {
-        $sorter[$ii]=$va[$key];
-    }
-    asort($sorter);
-    foreach ($sorter as $ii => $va) {
-        $ret[$ii]=$array[$ii];
-    }
-    $array=$ret;
-}
-
-// sort an array by a specific single key
-function multisort (&$array, $keys) {
-    /*$sorter=array();
-    $ret=array();
-    reset($array);
-    foreach ($array as $ii => $va) {
-        $sorter[$ii]=$va[$key];
-    }
-    asort($sorter);
-    foreach ($sorter as $ii => $va) {
-        $ret[$ii]=$array[$ii];
-    }
-    $array=$ret;*/
-}
-
 // our database
 $db = dbConnect();
 
@@ -107,32 +77,31 @@ if ($q != "") {
 	
 	// create where clause of sql
 	$where = "";
+	$order = "";
 	$c = count($names);
 	for ($i = 0; $i <= $c - 2; $i++) {
 		$where = $where . "$names[$i]=1 AND ";
+		$order = $order . '$names[$i]'  . '_avg, ';
 	}
 	$d = $c-1;
 	$where = $where . "$names[$d]=1";
+	$order = $order . "$names[$d]" . '_avg';
 	
 	// query the database
 	$sql = <<<SQL
 		SELECT *
 		FROM recommendations
 		WHERE $where
+		ORDER BY $order DESC;
 SQL;
 
+	// echo $sql . '<div><div>';
 	$result = $db->query($sql);
 	if (!$result) {
 		// no results or a query with the error
 		die('There was an error running the query [' . $db->error . ']');
 	} else {
-		// there are results; sort and put into the array (or string)
-		if ($numtags === 1) {
-			aasort($result, $names[0]);
-		} else if ($numtags >= 1) {
-			multisort($result, $names);			
-		}
-		
+		// there are results; put into the array (or string)		
 		$urls = [];
 		$urls_s = "";
 		foreach ($result as $item) {
@@ -142,6 +111,7 @@ SQL;
 		}
 		
 		// TODO: Pass results to display search result
+		// echo '<div></div><div></div>This is where wed echo the urls<div></div>';
 		echo $urls_s;
 	}
 	
