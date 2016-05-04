@@ -106,15 +106,18 @@ SQL;
 		$urls_s = "";
 		foreach ($result as $item) {
 			// echo $item['url'] . '<div><div>';
+			for ($i = 0; $i < count($names); $i++) {
+				$t = $item["$names[$i]_avg"];
+				$urls_s = $urls_s . $t . ',';
+			}
+			 
 			$urls_s = $urls_s . $item['url'] . ',';
 			array_push($urls, $item['url']);
 		}
 		
 		// TODO: Pass results to display search result
-		// echo '<div></div><div></div>This is where wed echo the urls<div></div>';
 		echo $urls_s;
 	}
-	
 }
 
 ?>
